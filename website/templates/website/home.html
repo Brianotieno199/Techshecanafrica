@@ -1,0 +1,500 @@
+{% load static tailwind_tags %}
+
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechShe Can Africa</title>
+    {% tailwind_css %}
+
+    <style>
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+
+        .fade-up { animation: fadeUp 1s ease forwards; }
+        .float { animation: float 4s ease-in-out infinite; }
+    </style>
+</head>
+
+<body class="bg-[#111827] text-white">
+
+    <!-- Navbar -->
+    <header class="fixed top-0 left-0 w-full z-50 bg-[#1B1F2A]/95 backdrop-blur-md border-b border-[#2F80ED]/40 shadow-lg">
+        <nav class="max-w-7xl mx-auto px-4 md:px-6 py-4 flex items-center justify-between">
+
+            <a href="#home" class="flex items-center gap-3">
+                <img src="{% static 'website/images/logo.jpeg' %}"
+                     alt="TechSheCan Africa Logo"
+                     class="h-12 w-12 md:h-14 md:w-14 rounded-full object-cover shadow-lg border-2 border-[#2F80ED]">
+
+                <div class="leading-tight">
+                    <p class="text-lg md:text-xl font-extrabold text-white">
+                        TechSheCan
+                    </p>
+                    <p class="text-xs md:text-sm font-bold text-[#00A99D]">
+                        Africa
+                    </p>
+                </div>
+            </a>
+
+            <div class="hidden md:flex items-center gap-7 text-sm font-semibold text-slate-200">
+                <a href="#home" class="hover:text-[#00A99D]">Home</a>
+                <a href="#about" class="hover:text-[#00A99D]">About</a>
+                <a href="#programs" class="hover:text-[#00A99D]">Programs</a>
+                <a href="#founder" class="hover:text-[#00A99D]">Founder</a>
+                <a href="#team" class="hover:text-[#00A99D]">Team</a>
+                <a href="#impact" class="hover:text-[#00A99D]">Impact</a>
+                <a href="#contact" class="hover:text-[#00A99D]">Contact</a>
+                <a href="#gallery" class="hover:text-[#00A99D]">Gallery</a>
+                <a href="#blog" class="hover:text-[#00A99D]">Blog</a>
+            </div>
+
+            <a href="#contact" class="hidden md:inline-block bg-[#00A99D] text-white px-5 py-2 rounded-full text-sm font-semibold hover:bg-[#008F85] transition">
+                Support Us
+            </a>
+
+            <button id="mobile-menu-button" class="md:hidden text-white text-3xl focus:outline-none">
+                ☰
+            </button>
+        </nav>
+
+        <div id="mobile-menu" class="hidden md:hidden bg-[#111827] border-t border-[#2F80ED]/30 px-6 py-5">
+            <div class="flex flex-col gap-4 text-sm font-semibold text-slate-200">
+                <a href="#home" class="hover:text-[#00A99D]">Home</a>
+                <a href="#about" class="hover:text-[#00A99D]">About</a>
+                <a href="#programs" class="hover:text-[#00A99D]">Programs</a>
+                <a href="#founder" class="hover:text-[#00A99D]">Founder</a>
+                <a href="#team" class="hover:text-[#00A99D]">Team</a>
+                <a href="#impact" class="hover:text-[#00A99D]">Impact</a>
+                <a href="#contact" class="hover:text-[#00A99D]">Contact</a>
+                <a href="#gallery" class="hover:text-[#00A99D]">Gallery</a>
+                <a href="#blog" class="hover:text-[#00A99D]">Blog</a>
+
+                <a href="#contact" class="bg-[#00A99D] text-white px-5 py-3 rounded-full text-center font-semibold hover:bg-[#008F85] transition">
+                    Support Us
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section id="home" class="min-h-screen pt-32 md:pt-28 px-4 md:px-6 bg-gradient-to-br from-[#111827] via-[#2E1A66] to-[#00A99D] flex items-center overflow-hidden">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+
+            <div class="fade-up">
+                <p class="uppercase tracking-widest text-[#F4A024] font-bold mb-4 text-sm md:text-base">
+                    Women. Technology. Transformation.
+                </p>
+
+                <h1 class="text-3xl md:text-6xl font-extrabold leading-tight text-white mb-6">
+                    Empowering African Women Through Technology, AI, and Financial Inclusion
+                </h1>
+
+                <p class="text-base md:text-xl text-slate-200 mb-8 max-w-2xl leading-8">
+                    TechShe Can Africa equips women in underserved communities with digital skills, safe technology platforms, and practical tools to grow businesses, strengthen families, and transform communities.
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="#programs" class="bg-[#00A99D] text-white px-7 py-3 rounded-full font-bold text-center hover:bg-[#008F85] transition">
+                        Explore Our Programs
+                    </a>
+                    <a href="#about" class="bg-[#F4A024] text-[#111827] px-7 py-3 rounded-full font-bold text-center hover:bg-[#D98B10] transition">
+                        Learn Our Story
+                    </a>
+                </div>
+            </div>
+
+            <div class="relative">
+                <div class="absolute -top-6 -left-6 w-32 h-32 bg-[#2F80ED] rounded-full opacity-50"></div>
+                <div class="absolute -bottom-6 -right-6 w-40 h-40 bg-[#F4A024] rounded-full opacity-50"></div>
+
+                <div class="relative bg-[#1E293B] rounded-3xl shadow-2xl p-5 border border-[#2F80ED]/30 float">
+                    <img src="{% static 'website/images/hero.jpeg' %}"
+                         alt="African women learning technology"
+                         class="w-full h-[260px] md:h-[420px] object-cover rounded-2xl">
+
+                    <div class="grid grid-cols-2 gap-4 mt-5">
+                        <div class="bg-[#111827] rounded-2xl p-5 border border-[#00A99D]/30">
+                            <h3 class="text-3xl font-extrabold text-[#00A99D]">500+</h3>
+                            <p class="text-sm text-slate-300">Women Trained</p>
+                        </div>
+                        <div class="bg-[#111827] rounded-2xl p-5 border border-[#F4A024]/30">
+                            <h3 class="text-3xl font-extrabold text-[#F4A024]">2030</h3>
+                            <p class="text-sm text-slate-300">Continental Vision</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="py-20 md:py-24 px-4 md:px-6 bg-[#1A2238]">
+        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+            <div>
+                <p class="text-[#00A99D] font-bold uppercase tracking-widest mb-3">About Us</p>
+                <h2 class="text-3xl md:text-5xl font-extrabold text-white mb-6">
+                    A women-led movement bridging Africa’s digital divide.
+                </h2>
+                <p class="text-slate-300 leading-8 mb-5">
+                    TechShe Can Africa is a women-led social impact and technology initiative committed to empowering women in underserved communities across Africa through digital skills training, artificial intelligence, financial inclusion, and community-centered innovation.
+                </p>
+                <p class="text-slate-300 leading-8">
+                    What began with two donated laptops and a small community training session has grown into a movement focused on ensuring women are not left behind in Africa’s rapidly expanding digital economy.
+                </p>
+            </div>
+
+            <div class="bg-[#1E293B] rounded-3xl p-6 md:p-8 shadow-xl border border-[#2F80ED]/20">
+                <h3 class="text-2xl font-bold text-[#F4A024] mb-4">Our Mission</h3>
+                <p class="text-slate-300 leading-7 mb-8">
+                    To empower women in underserved communities across Africa with digital skills, AI-driven tools, and smart financial solutions.
+                </p>
+
+                <h3 class="text-2xl font-bold text-[#F4A024] mb-4">Our Vision</h3>
+                <p class="text-slate-300 leading-7">
+                    To build a digitally empowered Africa where every woman has access to technology, opportunity, financial inclusion, and protection.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Programs -->
+    <section id="programs" class="py-20 md:py-24 px-4 md:px-6 bg-gradient-to-r from-[#2E1A66] to-[#111827]">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center max-w-3xl mx-auto mb-14">
+                <p class="text-[#F4A024] font-bold uppercase tracking-widest mb-3">What We Do</p>
+                <h2 class="text-3xl md:text-5xl font-extrabold text-white mb-6">
+                    Four programs. One ecosystem of empowerment.
+                </h2>
+                <p class="text-slate-300">
+                    Our programs combine digital training, safety, agriculture, finance, and AI to create lasting transformation for women and communities.
+                </p>
+            </div>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-[#1E293B] p-7 rounded-3xl shadow-lg hover:-translate-y-2 transition duration-300 border-t-4 border-[#00A99D]">
+                    <h3 class="text-xl font-bold text-white mb-3">Digital Skills Training</h3>
+                    <p class="text-slate-300">Computer literacy, internet use, mobile money, social media marketing, and digital business tools.</p>
+                </div>
+
+                <div class="bg-[#1E293B] p-7 rounded-3xl shadow-lg hover:-translate-y-2 transition duration-300 border-t-4 border-[#2F80ED]">
+                    <h3 class="text-xl font-bold text-white mb-3">HerVoice 360°</h3>
+                    <p class="text-slate-300">A secure platform supporting women experiencing gender-based violence through confidential reporting and access to support.</p>
+                </div>
+
+                <div class="bg-[#1E293B] p-7 rounded-3xl shadow-lg hover:-translate-y-2 transition duration-300 border-t-4 border-[#F4A024]">
+                    <h3 class="text-xl font-bold text-white mb-3">AgriAccess+</h3>
+                    <p class="text-slate-300">A digital agriculture and financial inclusion platform helping women farmers track income, expenses, and market data.</p>
+                </div>
+
+                <div class="bg-[#1E293B] p-7 rounded-3xl shadow-lg hover:-translate-y-2 transition duration-300 border-t-4 border-[#00A99D]">
+                    <h3 class="text-xl font-bold text-white mb-3">AI for Women in Business</h3>
+                    <p class="text-slate-300">Practical AI tools for customer service, analytics, inventory, forecasting, content, and design.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Founder's Note -->
+    <section id="founder" class="py-20 md:py-24 px-4 md:px-6 bg-[#16213E]">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+
+            <div class="relative">
+                <div class="absolute -top-6 -left-6 w-32 h-32 bg-[#00A99D] rounded-full opacity-40"></div>
+                <div class="absolute -bottom-6 -right-6 w-40 h-40 bg-[#F4A024] rounded-full opacity-40"></div>
+
+                <div class="relative bg-[#1E293B] rounded-3xl shadow-2xl border border-[#2F80ED]/30 p-6 flex items-center justify-center">
+                    <img src="{% static 'website/images/Founder.png' %}"
+                         alt="Roselinda Keziah Wanam"
+                         class="max-h-[360px] md:max-h-[520px] w-auto max-w-full object-contain rounded-2xl">
+                </div>
+            </div>
+
+            <div class="bg-[#1E293B] rounded-3xl shadow-xl p-6 md:p-10 border border-[#2F80ED]/20">
+                <p class="text-[#00A99D] font-bold uppercase tracking-widest mb-3">
+                    Founder’s Note
+                </p>
+
+                <h2 class="text-3xl md:text-5xl font-extrabold text-white leading-tight mb-6">
+                    A Vision Rooted <br class="hidden md:block"> in Experience
+                </h2>
+
+                <p class="text-slate-300 leading-8 mb-5 italic">
+                    “When I started this initiative, I never imagined it would grow into a movement. I simply saw women around me who were working incredibly hard but lacked access to the tools that could help them grow.”
+                </p>
+
+                <p class="text-slate-300 leading-8 mb-5">
+                    As the initiative grew, another challenge became impossible to ignore. Many women entrepreneurs were not only struggling economically, they were also facing fear, trauma, and insecurity caused by gender-based violence.
+                </p>
+
+                <p class="text-slate-300 leading-8 mb-5">
+                    Economic empowerment without protection could never be enough. This reality inspired HerVoice 360°. At the same time, many women farmers lacked modern systems to manage farms and access financial services, which led to AgriAccess+.
+                </p>
+
+                <p class="text-slate-300 leading-8 mb-6 italic">
+                    “When women access technology, they don’t just change their own lives. They transform families. They strengthen communities. They shape the future.”
+                </p>
+
+                <p class="text-slate-300 leading-8 mb-8">
+                    What began with two laptops has grown into a vision for a continental movement. And this is only the beginning.
+                </p>
+
+                <div class="border-t border-[#2F80ED]/30 pt-6">
+                    <h3 class="text-xl font-bold text-white">
+                        Roselinda Keziah Wanam
+                    </h3>
+                    <p class="text-[#F4A024] font-semibold">
+                        Founder & CEO, TechShe Can Africa · CTO Partner, JeliData Tech Solutions
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Team -->
+    <section id="team" class="py-20 md:py-24 px-4 md:px-6 bg-gradient-to-r from-[#111827] to-[#2E1A66]">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center max-w-3xl mx-auto mb-14">
+                <p class="text-[#F4A024] font-bold uppercase tracking-widest mb-3">Our Team</p>
+                <h2 class="text-3xl md:text-5xl font-extrabold text-white mb-6">
+                    A multidisciplinary team committed to women’s empowerment.
+                </h2>
+                <p class="text-slate-300">
+                    TechShe Can Africa is supported by leaders and partners with experience in technology, community development, finance, legal compliance, and program implementation.
+                </p>
+            </div>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+
+                <div class="bg-[#1E293B] rounded-3xl shadow-lg overflow-hidden hover:-translate-y-2 transition duration-300 border border-[#2F80ED]/20">
+                    <img src="{% static 'website/images/Founder.png' %}" alt="Team Member" class="w-full h-72 object-contain bg-[#111827] p-4">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-white">Roselinda Keziah Wanam</h3>
+                        <p class="text-[#00A99D] font-semibold mb-3">Founder & CEO</p>
+                        <p class="text-slate-300 text-sm">Software engineer and technology leader driving the vision of TechShe Can Africa.</p>
+                    </div>
+                </div>
+
+                <div class="bg-[#1E293B] rounded-3xl shadow-lg overflow-hidden hover:-translate-y-2 transition duration-300 border border-[#2F80ED]/20">
+                    <img src="{% static 'website/images/team-2.jpg' %}" alt="Team Member" class="w-full h-72 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-white">David Msala</h3>
+                        <p class="text-[#00A99D] font-semibold mb-3">Programs Director</p>
+                        <p class="text-slate-300 text-sm">Supports community training, women empowerment programs, and field implementation.</p>
+                    </div>
+                </div>
+
+                <div class="bg-[#1E293B] rounded-3xl shadow-lg overflow-hidden hover:-translate-y-2 transition duration-300 border border-[#2F80ED]/20">
+                    <img src="{% static 'website/images/team-3.jpg' %}" alt="Team Member" class="w-full h-72 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-white">Derick Sajad Ochieng</h3>
+                        <p class="text-[#00A99D] font-semibold mb-3">Chief Technology Officer</p>
+                        <p class="text-slate-300 text-sm">Supports platform development, digital innovation, and technical systems.</p>
+                    </div>
+                </div>
+
+                <div class="bg-[#1E293B] rounded-3xl shadow-lg overflow-hidden hover:-translate-y-2 transition duration-300 border border-[#2F80ED]/20">
+                    <img src="{% static 'website/images/team-4.jpg' %}" alt="Team Member" class="w-full h-72 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-white">Josephine Obingo</h3>
+                        <p class="text-[#00A99D] font-semibold mb-3">Community & Partnerships</p>
+                        <p class="text-slate-300 text-sm">Builds relationships with communities, institutions, NGOs, and development partners.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Impact -->
+    <section id="impact" class="py-20 md:py-24 px-4 md:px-6 bg-[#1A2238]">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center max-w-3xl mx-auto mb-14">
+                <p class="text-[#00A99D] font-bold uppercase tracking-widest mb-3">Our Impact</p>
+                <h2 class="text-3xl md:text-5xl font-extrabold text-white mb-6">
+                    Empowering one woman creates a ripple effect.
+                </h2>
+                <p class="text-slate-300">
+                    TechShe Can Africa is building measurable impact across communities in Kenya and preparing for broader African expansion.
+                </p>
+            </div>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+                <div class="bg-[#1E293B] rounded-3xl p-8 border border-[#00A99D]/30 shadow-md">
+                    <h3 class="text-4xl font-extrabold text-[#00A99D]">500+</h3>
+                    <p class="mt-3 text-slate-300">Women Trained</p>
+                </div>
+
+                <div class="bg-[#1E293B] rounded-3xl p-8 border border-[#F4A024]/30 shadow-md">
+                    <h3 class="text-4xl font-extrabold text-[#F4A024]">10,000+</h3>
+                    <p class="mt-3 text-slate-300">Women Goal by 2030</p>
+                </div>
+
+                <div class="bg-[#1E293B] rounded-3xl p-8 border border-[#2F80ED]/30 shadow-md">
+                    <h3 class="text-4xl font-extrabold text-[#2F80ED]">5,000</h3>
+                    <p class="mt-3 text-slate-300">Women Farmers Target</p>
+                </div>
+
+                <div class="bg-[#1E293B] rounded-3xl p-8 border border-[#00A99D]/30 shadow-md">
+                    <h3 class="text-4xl font-extrabold text-[#00A99D]">2</h3>
+                    <p class="mt-3 text-slate-300">Digital Platforms Deployed</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery -->
+    <section id="gallery" class="py-20 md:py-24 px-4 md:px-6 bg-[#16213E]">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center max-w-3xl mx-auto mb-14">
+                <p class="text-[#F4A024] font-bold uppercase tracking-widest mb-3">Gallery</p>
+                <h2 class="text-3xl md:text-5xl font-extrabold text-white mb-6">
+                    Moments of Impact
+                </h2>
+                <p class="text-slate-300">
+                    A look at our training sessions, community programs, partnerships, and women empowerment initiatives.
+                </p>
+            </div>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {% for image in gallery_images %}
+                    <div class="bg-[#1E293B] rounded-3xl overflow-hidden shadow-lg hover:-translate-y-2 transition duration-300 border border-[#2F80ED]/20">
+                        <img src="{{ image.image.url }}" alt="{{ image.title }}" class="w-full h-72 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-white">{{ image.title }}</h3>
+                            <p class="text-slate-300 mt-2">{{ image.description }}</p>
+                        </div>
+                    </div>
+                {% empty %}
+                    <p class="text-center text-slate-300 col-span-full">
+                        Gallery images will appear here once uploaded from the admin dashboard.
+                    </p>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog -->
+    <section id="blog" class="py-20 md:py-24 px-4 md:px-6 bg-gradient-to-r from-[#2E1A66] to-[#00A99D]">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center max-w-3xl mx-auto mb-14">
+                <p class="text-[#F4A024] font-bold uppercase tracking-widest mb-3">Blog</p>
+                <h2 class="text-3xl md:text-5xl font-extrabold text-white mb-6">
+                    Stories, Updates, and Insights
+                </h2>
+                <p class="text-slate-100">
+                    Read updates from TechShe Can Africa on digital inclusion, women empowerment, innovation, and community transformation.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                {% for post in posts %}
+                    <article class="bg-[#1E293B] rounded-3xl overflow-hidden shadow-lg hover:-translate-y-2 transition duration-300 border border-white/10">
+                        {% if post.image %}
+                            <img src="{{ post.image.url }}" alt="{{ post.title }}" class="w-full h-64 object-cover">
+                        {% endif %}
+
+                        <div class="p-7">
+                            <p class="text-sm text-[#F4A024] font-semibold mb-3">
+                                {{ post.created_at|date:"F d, Y" }}
+                            </p>
+
+                            <h3 class="text-2xl font-bold text-white mb-3">
+                                {{ post.title }}
+                            </h3>
+
+                            <p class="text-slate-300 mb-5">
+                                {{ post.excerpt }}
+                            </p>
+
+                            <a href="#" class="text-[#00A99D] font-bold hover:text-[#F4A024]">
+                                Read More
+                            </a>
+                        </div>
+                    </article>
+                {% empty %}
+                    <p class="text-center text-slate-100 col-span-full">
+                        Blog posts will appear here once added from the admin dashboard.
+                    </p>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="py-20 md:py-24 px-4 md:px-6 bg-[#111827]">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-start">
+
+            <div>
+                <p class="text-[#00A99D] font-bold uppercase tracking-widest mb-3">Contact Us</p>
+                <h2 class="text-3xl md:text-5xl font-extrabold text-white mb-6">
+                    Let’s Build a Digitally Empowered Africa Together
+                </h2>
+                <p class="text-slate-300 leading-8 mb-8">
+                    We welcome partnerships that strengthen digital inclusion, women empowerment, innovation, and community transformation across Africa.
+                </p>
+
+                <div class="space-y-4 text-slate-300">
+                    <p><strong class="text-[#F4A024]">Email:</strong> info@techshecanafrica.org</p>
+                    <p><strong class="text-[#F4A024]">Location:</strong> Nairobi, Kenya</p>
+                    <p><strong class="text-[#F4A024]">Focus:</strong> Women Empowerment, Technology, AI, Financial Inclusion</p>
+                </div>
+            </div>
+
+            <form method="POST" class="bg-[#1E293B] rounded-3xl shadow-xl p-6 md:p-8 border border-[#2F80ED]/20">
+                {% csrf_token %}
+
+                <div class="mb-5">
+                    <label class="block font-semibold text-slate-200 mb-2">Name</label>
+                    <input type="text" name="name" required class="w-full px-4 py-3 rounded-xl bg-[#111827] text-white border border-[#2F80ED]/30 focus:outline-none focus:ring-2 focus:ring-[#00A99D]">
+                </div>
+
+                <div class="mb-5">
+                    <label class="block font-semibold text-slate-200 mb-2">Email</label>
+                    <input type="email" name="email" required class="w-full px-4 py-3 rounded-xl bg-[#111827] text-white border border-[#2F80ED]/30 focus:outline-none focus:ring-2 focus:ring-[#00A99D]">
+                </div>
+
+                <div class="mb-5">
+                    <label class="block font-semibold text-slate-200 mb-2">Subject</label>
+                    <input type="text" name="subject" required class="w-full px-4 py-3 rounded-xl bg-[#111827] text-white border border-[#2F80ED]/30 focus:outline-none focus:ring-2 focus:ring-[#00A99D]">
+                </div>
+
+                <div class="mb-6">
+                    <label class="block font-semibold text-slate-200 mb-2">Message</label>
+                    <textarea name="message" rows="5" required class="w-full px-4 py-3 rounded-xl bg-[#111827] text-white border border-[#2F80ED]/30 focus:outline-none focus:ring-2 focus:ring-[#00A99D]"></textarea>
+                </div>
+
+                <button type="submit" class="w-full bg-[#00A99D] text-white py-4 rounded-full font-bold hover:bg-[#008F85] transition">
+                    Send Message
+                </button>
+            </form>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#0B1120] text-white py-8 px-6 text-center border-t border-[#2F80ED]/40">
+        <p>&copy; 2026 TechShe Can Africa. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        const menuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        menuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+
+</body>
+</html>
