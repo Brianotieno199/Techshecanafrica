@@ -23,10 +23,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-rm^5k1d4j2^!fd5z7ii-fp1qu(2oh$ic3vfm8j@t_0x76$7amj'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['techshecanafrica.org',
-                'www.techshecanafrica.org',]
+                'www.techshecanafrica.org', "127.0.0.1", "localhost"]
 
 CSRF_TRUSTED_ORIGINS = [
     'https://techshecanafrica.org',
