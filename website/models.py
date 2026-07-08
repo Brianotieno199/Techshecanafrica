@@ -28,7 +28,20 @@ class GalleryImage(models.Model):
 
     def __str__(self):
         return self.title
+    
+class Event(models.Model):
+    title = models.CharField(max_length=200)
+    flyer = models.ImageField(upload_to='event_flyers/')
+    event_date = models.DateField(blank=True, null=True)
+    description = models.TextField(blank=True)
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        ordering = ['-event_date', '-created_at']
+
+    def __str__(self):
+        return self.title
 
 class ContactMessage(models.Model):
     name = models.CharField(max_length=150)

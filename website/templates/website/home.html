@@ -27,11 +27,10 @@
 <body class="bg-[#111827] text-white">
 
     <header class="fixed top-0 left-0 w-full z-50 bg-[#1B1F2A]/95 backdrop-blur-md border-b border-[#2F80ED]/40 shadow-lg">
-        <nav class="max-w-7xl mx-auto px-4 md:px-6 py-4 flex items-center justify-between">
-
-            <a href="#home" class="flex items-center gap-3">
+        <nav class="max-w-7xl mx-auto px-4 md:px-6 py-4 flex items-center justify-between" aria-label="Main navigation">
+            <a href="#home" class="flex items-center gap-3" aria-label="TechShe Can Africa Home">
                 <img src="{% static 'website/images/logo.jpeg' %}"
-                     alt="TechSheCan Africa Logo"
+                     alt="TechShe Can Africa Logo"
                      class="h-12 w-12 md:h-14 md:w-14 rounded-full object-cover shadow-lg border-2 border-[#2F80ED]">
 
                 <div class="leading-tight">
@@ -41,40 +40,46 @@
             </a>
 
             <div class="hidden md:flex items-center gap-7 text-sm font-semibold text-slate-200">
-                <a href="#home" class="hover:text-[#00A99D]">Home</a>
-                <a href="#about" class="hover:text-[#00A99D]">About</a>
-                <a href="#programs" class="hover:text-[#00A99D]">Programs</a>
-                <a href="#innovations" class="hover:text-[#00A99D]">Innovations</a>
-                <a href="#founder" class="hover:text-[#00A99D]">Founder</a>
-                <a href="#team" class="hover:text-[#00A99D]">Team</a>
-                <a href="#impact" class="hover:text-[#00A99D]">Impact</a>
-                <a href="#contact" class="hover:text-[#00A99D]">Contact</a>
-                <a href="#gallery" class="hover:text-[#00A99D]">Gallery</a>
-                <a href="#blog" class="hover:text-[#00A99D]">Blog</a>
+                <a href="#home" class="hover:text-[#00A99D] transition">Home</a>
+                <a href="#about" class="hover:text-[#00A99D] transition">About</a>
+                <a href="#programs" class="hover:text-[#00A99D] transition">Programs</a>
+                <a href="#innovations" class="hover:text-[#00A99D] transition">Innovations</a>
+                <a href="#founder" class="hover:text-[#00A99D] transition">Founder</a>
+                <a href="#team" class="hover:text-[#00A99D] transition">Team</a>
+                <a href="#impact" class="hover:text-[#00A99D] transition">Impact</a>
+                <a href="#events" class="hover:text-[#00A99D]">Events</a>
+                <a href="#contact" class="hover:text-[#00A99D] transition">Contact</a>
+                <a href="#gallery" class="hover:text-[#00A99D] transition">Gallery</a>
+                <a href="#blog" class="hover:text-[#00A99D] transition">Blog</a>
             </div>
 
             <a href="#contact" class="hidden md:inline-block bg-[#00A99D] text-white px-5 py-2 rounded-full text-sm font-semibold hover:bg-[#008F85] transition">
                 Support Us
             </a>
 
-            <button id="mobile-menu-button" class="md:hidden text-white text-3xl focus:outline-none">
+            <button id="mobile-menu-button"
+                    type="button"
+                    class="md:hidden text-white text-3xl focus:outline-none focus:ring-2 focus:ring-[#00A99D] rounded-lg px-2"
+                    aria-controls="mobile-menu"
+                    aria-expanded="false"
+                    aria-label="Open mobile menu">
                 ☰
             </button>
         </nav>
 
         <div id="mobile-menu" class="hidden md:hidden bg-[#111827] border-t border-[#2F80ED]/30 px-6 py-5">
             <div class="flex flex-col gap-4 text-sm font-semibold text-slate-200">
-                <a href="#home" class="hover:text-[#00A99D]">Home</a>
-                <a href="#about" class="hover:text-[#00A99D]">About</a>
-                <a href="#programs" class="hover:text-[#00A99D]">Programs</a>
-                <a href="#innovations" class="hover:text-[#00A99D]">Innovations</a>
-                <a href="#founder" class="hover:text-[#00A99D]">Founder</a>
-                <a href="#team" class="hover:text-[#00A99D]">Team</a>
-                <a href="#impact" class="hover:text-[#00A99D]">Impact</a>
-                <a href="#contact" class="hover:text-[#00A99D]">Contact</a>
-                <a href="#gallery" class="hover:text-[#00A99D]">Gallery</a>
-                <a href="#blog" class="hover:text-[#00A99D]">Blog</a>
-
+                <a href="#home" class="hover:text-[#00A99D] transition">Home</a>
+                <a href="#about" class="hover:text-[#00A99D] transition">About</a>
+                <a href="#programs" class="hover:text-[#00A99D] transition">Programs</a>
+                <a href="#innovations" class="hover:text-[#00A99D] transition">Innovations</a>
+                <a href="#founder" class="hover:text-[#00A99D] transition">Founder</a>
+                <a href="#team" class="hover:text-[#00A99D] transition">Team</a>
+                <a href="#impact" class="hover:text-[#00A99D] transition">Impact</a>
+                <a href="#events" class="hover:text-[#00A99D]">Events</a>
+                <a href="#contact" class="hover:text-[#00A99D] transition">Contact</a>
+                <a href="#gallery" class="hover:text-[#00A99D] transition">Gallery</a>
+                <a href="#blog" class="hover:text-[#00A99D] transition">Blog</a>
                 <a href="#contact" class="bg-[#00A99D] text-white px-5 py-3 rounded-full text-center font-semibold hover:bg-[#008F85] transition">
                     Support Us
                 </a>
@@ -174,40 +179,40 @@
                 </p>
             </div>
 
-            <div class="grid sm:grid-cols-2 gap-6">
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 <div class="bg-[#1E293B] p-7 rounded-3xl shadow-lg hover:-translate-y-2 transition duration-300 border-t-4 border-[#00A99D]">
                     <h3 class="text-xl font-bold text-white mb-3">Digital Skills & AI Empowerment</h3>
                     <p class="text-slate-300">
-                    Training in strategic planning, entrepreneurship, branding, digital marketing, and why every woman must be online to compete and grow.
+                        Training in strategic planning, entrepreneurship, branding, digital marketing, and why every woman must be online to compete and grow.
                     </p>
                 </div>
 
                 <div class="bg-[#1E293B] p-7 rounded-3xl shadow-lg hover:-translate-y-2 transition duration-300 border-t-4 border-[#F4A024]">
-                    <h3 class="text-xl font-bold text-white mb-3"> Business Strategy & Growth</h3>
+                    <h3 class="text-xl font-bold text-white mb-3">Business Strategy & Growth</h3>
                     <p class="text-slate-300">
                         Practical AI tools for customer service, analytics, inventory, forecasting, content creation, and business growth.
                     </p>
                 </div>
-            </div>
-        </div>
-        <div class="grid sm:grid-cols-2 gap-6">
+
                 <div class="bg-[#1E293B] p-7 rounded-3xl shadow-lg hover:-translate-y-2 transition duration-300 border-t-4 border-[#00A99D]">
                     <h3 class="text-xl font-bold text-white mb-3">Smart Financial Solutions</h3>
                     <p class="text-slate-300">
-                    Building financial confidence through financial literacy, savings culture, business funding readiness, and linkages to banks and financial institutions.
+                        Building financial confidence through financial literacy, savings culture, business funding readiness, and linkages to banks and financial institutions.
                     </p>
                 </div>
 
                 <div class="bg-[#1E293B] p-7 rounded-3xl shadow-lg hover:-translate-y-2 transition duration-300 border-t-4 border-[#F4A024]">
-                    <h3 class="text-xl font-bold text-white mb-3"> Mentorship & Leadership Development</h3>
+                    <h3 class="text-xl font-bold text-white mb-3">Mentorship & Leadership Development</h3>
                     <p class="text-slate-300">
                         Nurturing women through mentorship, self-care, confidence building, leadership training, and personal growth.
                     </p>
                 </div>
-                <div class="bg-[#1E293B] p-7 rounded-3xl shadow-lg hover:-translate-y-2 transition duration-300 border-t-4 border-[#F4A024]">
-                    <h3 class="text-xl font-bold text-white mb-3">  Safe Spaces for Women & Girls</h3>
+
+                <div class="bg-[#1E293B] p-7 rounded-3xl shadow-lg hover:-translate-y-2 transition duration-300 border-t-4 border-[#F4A024] sm:col-span-2 lg:col-span-1">
+                    <h3 class="text-xl font-bold text-white mb-3">Safe Spaces for Women & Girls</h3>
                     <p class="text-slate-300">
                         Creating trusted environments where women and girls feel supported, connected, heard, and empowered to thrive.
+                    </p>
                 </div>
             </div>
         </div>
@@ -227,10 +232,10 @@
 
             <div class="grid sm:grid-cols-2 gap-6">
                 <div class="bg-[#1E293B] p-7 rounded-3xl shadow-lg hover:-translate-y-2 transition duration-300 border-t-4 border-[#2F80ED]">
-                    <h3 class="text-xl font-bold text-white mb-3"> Her Voice 360° (GBV Support & Advocacy)</h3>
+                    <h3 class="text-xl font-bold text-white mb-3">Her Voice 360° (GBV Support & Advocacy)</h3>
                     <p class="text-slate-300">
-                        Providing safe support systems, awareness, healing pathways, and advocacy for GBV survivors-because every woman deserves dignity, safety, and a voice.
-We don’t just teach skills. We build confidence. We unlock potential. We transform futures.
+                        Providing safe support systems, awareness, healing pathways, and advocacy for GBV survivors—because every woman deserves dignity, safety, and a voice. We don’t just teach skills. We build confidence. We unlock potential. We transform futures.
+                    </p>
                 </div>
 
                 <div class="bg-[#1E293B] p-7 rounded-3xl shadow-lg hover:-translate-y-2 transition duration-300 border-t-4 border-[#F4A024]">
@@ -432,8 +437,49 @@ We don’t just teach skills. We build confidence. We unlock potential. We trans
             </div>
         </div>
     </section>
+    <section id="events" class="py-20 md:py-24 px-4 md:px-6 bg-[#111827]">
+    <div class="max-w-7xl mx-auto">
+        <div class="text-center max-w-3xl mx-auto mb-14">
+            <p class="text-[#F4A024] font-bold uppercase tracking-widest mb-3">Events</p>
+            <h2 class="text-3xl md:text-5xl font-extrabold text-white mb-6">
+                Upcoming Events
+            </h2>
+            <p class="text-slate-300">
+                Stay connected with our latest programs, workshops, trainings, and community events.
+            </p>
+        </div>
 
-    <section id="blog" class="py-20 md:py-24 px-4 md:px-6 bg-gradient-to-r from-[#2E1A66] to-[#00A99D]">
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for event in events %}
+                <div class="bg-[#1E293B] rounded-3xl overflow-hidden shadow-lg hover:-translate-y-2 transition duration-300 border border-[#2F80ED]/20">
+                    <img src="{{ event.flyer.url }}" alt="{{ event.title }}" class="w-full h-80 object-cover object-center">
+
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold text-white mb-2">{{ event.title }}</h3>
+
+                        {% if event.event_date %}
+                            <p class="text-[#F4A024] font-semibold mb-3">
+                                {{ event.event_date|date:"F d, Y" }}
+                            </p>
+                        {% endif %}
+
+                        {% if event.description %}
+                            <p class="text-slate-300">
+                                {{ event.description }}
+                            </p>
+                        {% endif %}
+                    </div>
+                </div>
+            {% empty %}
+                <p class="text-center text-slate-300 col-span-full">
+                    No Upcoming Events yet.
+                </p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section id="blog" class="py-20 md:py-24 px-4 md:px-6 bg-gradient-to-r from-[#2E1A66] to-[#00A99D]">
         <div class="max-w-7xl mx-auto">
             <div class="text-center max-w-3xl mx-auto mb-14">
                 <p class="text-[#F4A024] font-bold uppercase tracking-widest mb-3">Blog</p>
@@ -537,9 +583,40 @@ We don’t just teach skills. We build confidence. We unlock potential. We trans
     <script>
         const menuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuLinks = document.querySelectorAll('#mobile-menu a');
 
-        menuButton.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
+        function openMenu() {
+            mobileMenu.classList.remove('hidden');
+            menuButton.textContent = '✕';
+            menuButton.setAttribute('aria-expanded', 'true');
+            menuButton.setAttribute('aria-label', 'Close mobile menu');
+        }
+
+        function closeMenu() {
+            mobileMenu.classList.add('hidden');
+            menuButton.textContent = '☰';
+            menuButton.setAttribute('aria-expanded', 'false');
+            menuButton.setAttribute('aria-label', 'Open mobile menu');
+        }
+
+        function toggleMenu() {
+            if (mobileMenu.classList.contains('hidden')) {
+                openMenu();
+            } else {
+                closeMenu();
+            }
+        }
+
+        menuButton.addEventListener('click', toggleMenu);
+
+        mobileMenuLinks.forEach((link) => {
+            link.addEventListener('click', closeMenu);
+        });
+
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= 768) {
+                closeMenu();
+            }
         });
     </script>
 

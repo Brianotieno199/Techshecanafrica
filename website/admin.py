@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import BlogPost, GalleryImage, ContactMessage
+from .models import BlogPost, GalleryImage,Event, ContactMessage
 
 
 @admin.register(BlogPost)
@@ -15,6 +15,11 @@ class GalleryImageAdmin(admin.ModelAdmin):
     list_display = ('title', 'created_at')
     search_fields = ('title', 'description')
 
+@admin.register(Event)
+class EventAdmin(admin.ModelAdmin):
+    list_display = ('title', 'event_date', 'is_active', 'created_at')
+    list_filter = ('is_active', 'event_date')
+    search_fields = ('title', 'description')
 
 @admin.register(ContactMessage)
 class ContactMessageAdmin(admin.ModelAdmin):

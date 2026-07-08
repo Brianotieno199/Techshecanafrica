@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect
-from .models import BlogPost, GalleryImage, ContactMessage
+from .models import BlogPost, GalleryImage, ContactMessage, Event
 
 
 def home(request):
     posts = BlogPost.objects.filter(is_published=True)[:3]
     gallery_images = GalleryImage.objects.all()[:6]
+    events = Event.objects.filter(is_active=True)
 
     if request.method == 'POST':
         ContactMessage.objects.create(
@@ -18,6 +19,7 @@ def home(request):
     context = {
         'posts': posts,
         'gallery_images': gallery_images,
+        'events': events,
     }
 
     return render(request, 'website/home.html', context)
