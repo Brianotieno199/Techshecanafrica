@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import BlogPost, GalleryImage, ContactMessage, Event
 
 
@@ -23,3 +23,13 @@ def home(request):
     }
 
     return render(request, 'website/home.html', context)
+
+
+def blog_detail(request, slug):
+    post = get_object_or_404(BlogPost, slug=slug, is_published=True)
+
+    context = {
+        'post': post,
+    }
+
+    return render(request, 'website/blog_detail.html', context)

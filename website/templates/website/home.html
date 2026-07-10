@@ -511,7 +511,7 @@
                                 {{ post.excerpt }}
                             </p>
 
-                            <a href="#" class="text-[#00A99D] font-bold hover:text-[#F4A024]">
+                            <a href="{% url 'blog_detail' post.slug %}" class="text-[#00A99D] font-bold hover:text-[#F4A024]">
                                 Read More
                             </a>
                         </div>

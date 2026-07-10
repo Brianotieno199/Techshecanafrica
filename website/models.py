@@ -1,21 +1,34 @@
 from django.db import models
+from django.utils.text import slugify
+from django_ckeditor_5.fields import CKEditor5Field
 
 
 class BlogPost(models.Model):
-    title = models.CharField(max_length=200)
-    slug = models.SlugField(unique=True)
-    excerpt = models.TextField()
-    content = models.TextField()
+    title = models.CharField(max_length=255)
+    slug = models.SlugField(unique=True, blank=True)
+    excerpt = models.TextField(blank=True)
+    content = CKEditor5Field('Content', config_name='extends')
     image = models.ImageField(upload_to='blog/', blank=True, null=True)
+    meta_description = models.CharField(max_length=160, blank=True)
+    author = models.CharField(max_length=100, default='TechShe Can Africa')
     is_published = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         ordering = ['-created_at']
 
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+
+        if not self.meta_description and self.excerpt:
+            self.meta_description = self.excerpt[:160]
+
+        super().save(*args, **kwargs)
+
     def __str__(self):
         return self.title
-
 
 class GalleryImage(models.Model):
     title = models.CharField(max_length=200)
@@ -56,3 +69,4 @@ class ContactMessage(models.Model):
 
     def __str__(self):
         return f"{self.name} - {self.subject}"
+

@@ -1,0 +1,80 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{{ post.title }} | TechShe Can Africa</title>
+
+    <meta name="description" content="{{ post.excerpt }}">
+
+    <link rel="stylesheet" href="{% static 'css/dist/styles.css' %}">
+</head>
+
+<body class="bg-[#111827] text-white">
+
+    <!-- Header -->
+    <header class="bg-[#1B1F2A] shadow-lg">
+        <div class="max-w-6xl mx-auto px-6 py-6">
+
+            <a href="{% url 'home' %}" class="text-[#00A99D] font-bold">
+                ← Back to Home
+            </a>
+
+        </div>
+    </header>
+
+    <!-- Article -->
+    <main class="max-w-4xl mx-auto px-6 py-16">
+
+        {% if post.image %}
+            <img
+                src="{{ post.image.url }}"
+                alt="{{ post.title }}"
+                class="w-full rounded-3xl mb-10 object-cover">
+        {% endif %}
+
+        <p class="text-[#F4A024] font-semibold mb-3">
+            {{ post.created_at|date:"F d, Y" }}
+        </p>
+
+        <h1 class="text-4xl md:text-5xl font-extrabold mb-8">
+            {{ post.title }}
+        </h1>
+
+        <div class="prose prose-invert max-w-none text-slate-300 leading-8">
+
+          {{ post.content|safe }}
+
+        </div>
+
+    </main>
+
+    <!-- CTA -->
+
+    <section class="bg-[#1E293B] py-16">
+
+        <div class="max-w-4xl mx-auto px-6 text-center">
+
+            <h2 class="text-3xl font-bold mb-4">
+                Partner With TechShe Can Africa
+            </h2>
+
+            <p class="text-slate-300 mb-8">
+                Whether through mentorship, sponsorship, volunteering, or strategic partnerships,
+                your support helps us create lasting opportunities for women and girls across Africa.
+            </p>
+
+            <a href="{% url 'home' %}#contact"
+               class="inline-block bg-[#00A99D] px-8 py-4 rounded-full font-bold hover:bg-[#008F85] transition">
+                Partner With Us
+            </a>
+
+        </div>
+
+    </section>
+
+</body>
+</html>
