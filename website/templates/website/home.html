@@ -319,6 +319,16 @@
                 </div>
 
                 <div class="bg-[#1E293B] rounded-3xl shadow-lg overflow-hidden hover:-translate-y-2 transition duration-300 border border-[#2F80ED]/20">
+                    <img src="{% static 'website/images/teddy.png' %}"
+                         alt="David Msala"
+                         class="w-full h-72 object-contain bg-[#111827] p-4">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-white">Teddy Warria</h3>
+                        <p class="text-[#00A99D] font-semibold mb-3">Founding Strategic Partner & Chair TechShe Can Africa Advisory Board</p>
+                    </div>
+                </div>
+
+                <div class="bg-[#1E293B] rounded-3xl shadow-lg overflow-hidden hover:-translate-y-2 transition duration-300 border border-[#2F80ED]/20">
                     <img src="{% static 'website/images/iti.png' %}"
                          alt="Derick Sajad Ochieng"
                          class="w-full h-72 object-contain bg-[#111827] p-4">
@@ -464,10 +474,26 @@
                         {% endif %}
 
                         {% if event.description %}
-                            <p class="text-slate-300">
-                                {{ event.description }}
-                            </p>
-                        {% endif %}
+    <p class="text-slate-300 mb-6">
+        {{ event.description|truncatewords:25 }}
+    </p>
+{% endif %}
+
+<div class="grid grid-cols-2 gap-3">
+    <a
+        href="{% url 'event_detail' event.id %}"
+        class="bg-[#2F80ED] text-white text-center py-3 rounded-xl font-bold hover:bg-blue-700 transition"
+    >
+        View Event
+    </a>
+
+    <a
+        href="{% url 'event_register' event.id %}"
+        class="bg-[#00A99D] text-white text-center py-3 rounded-xl font-bold hover:bg-[#008F85] transition"
+    >
+        Register
+    </a>
+</div>
                     </div>
                 </div>
             {% empty %}

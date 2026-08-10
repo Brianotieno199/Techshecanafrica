@@ -1,0 +1,2098 @@
+{% load static tailwind_tags %}
+
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Register, sponsor, exhibit, advertise, or support {{ event.title }}."
+    >
+
+    <title>
+        Register for {{ event.title }} | TechShe Can Africa
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="{% static 'css/dist/styles.css' %}"
+    >
+
+    <style>
+        /* Keep dropdown and form text clearly visible without hovering */
+        select {
+            width: 100%;
+            background-color: #ffffff !important;
+            color: #0f172a !important;
+            border-color: #cbd5e1 !important;
+            color-scheme: light;
+        }
+
+        select option {
+            background-color: #ffffff !important;
+            color: #0f172a !important;
+        }
+
+        select:hover,
+        select:focus,
+        select:active {
+            background-color: #ffffff !important;
+            color: #0f172a !important;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="number"],
+        input[type="date"],
+        input[type="time"],
+        textarea {
+            background-color: #ffffff !important;
+            color: #0f172a !important;
+            border-color: #cbd5e1 !important;
+        }
+
+        input[type="text"]::placeholder,
+        input[type="email"]::placeholder,
+        input[type="tel"]::placeholder,
+        input[type="number"]::placeholder,
+        input[type="date"]::placeholder,
+        input[type="time"]::placeholder,
+        textarea::placeholder {
+            color: #64748b !important;
+            opacity: 1;
+        }
+
+        input[type="file"] {
+            background-color: #ffffff !important;
+            color: #0f172a !important;
+        }
+
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover,
+        input:-webkit-autofill:focus,
+        textarea:-webkit-autofill,
+        select:-webkit-autofill {
+            -webkit-text-fill-color: #0f172a !important;
+            -webkit-box-shadow: 0 0 0 1000px #ffffff inset !important;
+            box-shadow: 0 0 0 1000px #ffffff inset !important;
+        }
+
+        /* Professional registration form layout */
+        .professional-form > section {
+            background: rgba(15, 23, 42, 0.72);
+            border: 1px solid rgba(47, 128, 237, 0.18);
+            border-radius: 1.25rem;
+            padding: 1.5rem;
+        }
+
+        .professional-form > section + div.border-t {
+            margin-top: 1.75rem !important;
+            margin-bottom: 1.75rem !important;
+        }
+
+        .professional-form label {
+            letter-spacing: 0.01em;
+        }
+
+        .professional-form select,
+        .professional-form input[type="text"],
+        .professional-form input[type="email"],
+        .professional-form input[type="tel"],
+        .professional-form input[type="number"],
+        .professional-form input[type="date"],
+        .professional-form input[type="time"],
+        .professional-form textarea {
+            min-height: 48px;
+            border-radius: 0.75rem !important;
+            box-shadow: 0 1px 2px rgba(15, 23, 42, 0.08);
+        }
+
+        .professional-form textarea {
+            min-height: 110px;
+        }
+
+        .professional-form select:focus,
+        .professional-form input:focus,
+        .professional-form textarea:focus {
+            border-color: #00A99D !important;
+            box-shadow: 0 0 0 3px rgba(0, 169, 157, 0.18) !important;
+            outline: none !important;
+        }
+
+        @media (min-width: 768px) {
+            .professional-form > section {
+                padding: 2rem;
+            }
+        }
+
+
+        /* Large side-by-side flyer and registration form */
+        @media (min-width: 1024px) {
+            .event-flyer-panel {
+                position: sticky;
+                top: 1.5rem;
+            }
+
+            .event-flyer-panel img {
+                width: 100%;
+                height: auto;
+                max-height: calc(100vh - 3rem);
+                object-fit: contain;
+            }
+        }
+
+    </style>
+</head>
+
+<body class="bg-[#111827] text-white">
+
+    <!-- ==========================================
+         HEADER
+    =========================================== -->
+
+    <header
+        class="bg-[#1B1F2A]
+               border-b border-[#2F80ED]/40
+               shadow-lg"
+    >
+        <nav
+            class="max-w-screen-2xl mx-auto
+                   px-4 md:px-6 py-4
+                   flex items-center justify-between gap-4"
+        >
+            <a
+                href="{% url 'home' %}"
+                class="flex items-center gap-3"
+            >
+                <img
+                    src="{% static 'website/images/logo.jpeg' %}"
+                    alt="TechShe Can Africa Logo"
+                    class="h-12 w-12 rounded-full object-cover
+                           border-2 border-[#2F80ED]"
+                >
+
+                <div class="leading-tight">
+                    <p class="text-lg font-extrabold text-white">
+                        TechShe Can
+                    </p>
+
+                    <p class="text-sm font-bold text-[#00A99D]">
+                        Africa
+                    </p>
+                </div>
+            </a>
+
+            <a
+                href="{% url 'event_detail' event.id %}"
+                class="text-sm md:text-base text-slate-200
+                       hover:text-[#00A99D] transition"
+            >
+                Back to Event
+            </a>
+        </nav>
+    </header>
+
+
+    <!-- ==========================================
+         DJANGO MESSAGES
+    =========================================== -->
+
+    {% if messages %}
+        <section
+            class="max-w-screen-2xl mx-auto
+                   px-4 md:px-6 pt-6"
+        >
+            {% for message in messages %}
+                <div
+                    class="
+                        mb-4 rounded-xl border px-5 py-4
+                        {% if message.tags == 'success' %}
+                            border-green-500/40
+                            bg-green-500/10
+                            text-green-200
+                        {% elif message.tags == 'error' %}
+                            border-red-500/40
+                            bg-red-500/10
+                            text-red-200
+                        {% elif message.tags == 'warning' %}
+                            border-yellow-500/40
+                            bg-yellow-500/10
+                            text-yellow-200
+                        {% else %}
+                            border-blue-500/40
+                            bg-blue-500/10
+                            text-blue-200
+                        {% endif %}
+                    "
+                >
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </section>
+    {% endif %}
+
+
+    <main>
+        <section
+            class="py-8 md:py-12 px-4 md:px-6
+                   bg-gradient-to-br
+                   from-[#111827]
+                   via-[#2E1A66]
+                   to-[#00A99D]"
+        >
+            <div class="max-w-screen-2xl mx-auto">
+
+                <!-- PAGE INTRODUCTION -->
+
+                <div class="text-center max-w-3xl mx-auto mb-8">
+                    <p
+                        class="text-[#F4A024]
+                               font-bold uppercase
+                               tracking-widest mb-3"
+                    >
+                        Registration, Booking and Support
+                    </p>
+
+                    <h1
+                        class="text-3xl md:text-4xl
+                               font-extrabold text-white mb-4"
+                    >
+                        {{ event.title }}
+                    </h1>
+
+                    {% if event.event_date %}
+                        <p
+                            class="text-lg md:text-xl
+                                   text-slate-200"
+                        >
+                            {{ event.event_date|date:"l, F d, Y" }}
+                        </p>
+                    {% endif %}
+
+                    {% if event.location %}
+                        <p class="text-slate-300 mt-2">
+                            {{ event.location }}
+                        </p>
+                    {% endif %}
+                </div>
+
+
+                <div
+                    class="grid lg:grid-cols-12
+                           gap-8 xl:gap-10 items-start"
+                >
+
+                    <!-- ==========================================
+                         EVENT SUMMARY
+                    =========================================== -->
+
+                    <aside class="lg:col-span-5">
+                        <div
+                            class="event-flyer-panel bg-[#1E293B]
+                                   rounded-3xl shadow-2xl
+                                   border border-[#2F80ED]/30
+                                   overflow-hidden"
+                        >
+                            {% if event.flyer %}
+                                <img
+                                    src="{{ event.flyer.url }}"
+                                    alt="{{ event.title }}"
+                                    class="w-full max-h-[820px]
+                                           object-contain
+                                           bg-[#111827]"
+                                >
+                            {% endif %}
+
+                            <div class="p-6 md:p-8">
+                                <h2
+                                    class="text-2xl md:text-3xl
+                                           font-bold text-white mb-3"
+                                >
+                                    {{ event.title }}
+                                </h2>
+
+                                {% if event.event_date %}
+                                    <p
+                                        class="text-[#F4A024]
+                                               font-semibold mb-3"
+                                    >
+                                        {{ event.event_date|date:"F d, Y" }}
+                                    </p>
+                                {% endif %}
+
+                                {% if event.location %}
+                                    <p class="text-slate-300 mb-4">
+                                        {{ event.location }}
+                                    </p>
+                                {% endif %}
+
+                                {% if event.description %}
+                                    <p
+                                        class="text-slate-300
+                                               leading-7"
+                                    >
+                                        {{ event.description|truncatewords:45 }}
+                                    </p>
+                                {% endif %}
+
+                                {% if selected_category %}
+                                    <div
+                                        class="mt-6 rounded-2xl
+                                               border border-[#00A99D]/40
+                                               bg-[#00A99D]/10
+                                               p-5"
+                                    >
+                                        <p
+                                            class="text-xs uppercase
+                                                   tracking-widest
+                                                   text-[#00A99D]
+                                                   font-bold"
+                                        >
+                                            Selected Option
+                                        </p>
+
+                                        <h3
+                                            class="text-lg font-bold
+                                                   text-white mt-2"
+                                        >
+                                            {{ selected_category.name }}
+                                        </h3>
+
+                                        <p
+                                            class="text-sm text-slate-300
+                                                   mt-1"
+                                        >
+                                            {{ selected_category.link_id }}
+                                        </p>
+
+                                        <p
+                                            class="text-2xl font-extrabold
+                                                   text-[#F4A024] mt-4"
+                                        >
+                                            {% if selected_category.is_custom_amount %}
+                                                {% if selected_category.base_price > 0 %}
+                                                    From
+                                                    {% if selected_category.currency == "KES" %}
+                                                        KSh
+                                                    {% else %}
+                                                        {{ selected_category.currency }}
+                                                    {% endif %}
+                                                    {{ selected_category.base_price|floatformat:0 }}
+                                                {% else %}
+                                                    Custom Amount
+                                                {% endif %}
+                                            {% else %}
+                                                {% if selected_category.currency == "KES" %}
+                                                    KSh
+                                                {% else %}
+                                                    {{ selected_category.currency }}
+                                                {% endif %}
+                                                {{ selected_category.base_price|floatformat:0 }}
+                                            {% endif %}
+                                        </p>
+
+                                        {% if selected_category.is_vip %}
+                                            <span
+                                                class="inline-flex mt-4
+                                                       rounded-full
+                                                       bg-[#F4A024]/15
+                                                       border border-[#F4A024]/30
+                                                       px-3 py-1
+                                                       text-xs font-bold
+                                                       text-[#F4A024]"
+                                            >
+                                                VIP Intake Required
+                                            </span>
+                                        {% endif %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </aside>
+
+
+                    <!-- ==========================================
+                         REGISTRATION FORM
+                    =========================================== -->
+
+                    <div class="lg:col-span-7">
+                        <form
+                            method="POST"
+                            enctype="multipart/form-data"
+                            novalidate
+                            class="professional-form bg-[#1E293B]
+                                   rounded-3xl shadow-2xl
+                                   border border-[#2F80ED]/20
+                                   p-5 md:p-8 lg:p-10"
+                        >
+                            {% csrf_token %}
+
+                            <!-- TRACKING FIELDS -->
+
+                            {{ form.utm_source }}
+                            {{ form.utm_medium }}
+                            {{ form.utm_campaign }}
+                            {{ form.utm_content }}
+                            {{ form.utm_term }}
+                            {{ form.referral_code }}
+
+
+                            <!-- ALL FORM ERRORS -->
+
+                            {% if form.non_field_errors %}
+                                <div
+                                    class="mb-6
+                                           bg-red-900/40
+                                           border border-red-500
+                                           text-red-200
+                                           rounded-2xl p-4"
+                                >
+                                    {% for error in form.non_field_errors %}
+                                        <p>{{ error }}</p>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+
+                            {% if vip_form and vip_form.non_field_errors %}
+                                <div
+                                    class="mb-6
+                                           bg-red-900/40
+                                           border border-red-500
+                                           text-red-200
+                                           rounded-2xl p-4"
+                                >
+                                    {% for error in vip_form.non_field_errors %}
+                                        <p>{{ error }}</p>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+
+
+                            <!-- ==========================================
+                                 CATEGORY AND PAYMENT OPTION
+                            =========================================== -->
+
+                            <section>
+                                <div class="mb-8">
+                                    <p
+                                        class="text-[#00A99D]
+                                               font-bold uppercase
+                                               tracking-widest mb-2"
+                                    >
+                                        Step 1
+                                    </p>
+
+                                    <h2
+                                        class="text-2xl md:text-3xl
+                                               font-extrabold
+                                               text-white mb-3"
+                                    >
+                                        Select Your Category
+                                    </h2>
+
+                                    <p class="text-slate-300">
+                                        Choose the registration, booking,
+                                        sponsorship, advertising, or support
+                                        option that applies to you.
+                                    </p>
+                                </div>
+
+                                <div>
+                                    <label
+                                        for="{{ form.category_item.id_for_label }}"
+                                        class="block text-slate-200
+                                               font-semibold mb-2"
+                                    >
+                                        {{ form.category_item.label }}
+                                        <span class="text-red-400">*</span>
+                                    </label>
+
+                                    {{ form.category_item }}
+
+                                    {% for error in form.category_item.errors %}
+                                        <p class="text-red-400 text-sm mt-2">
+                                            {{ error }}
+                                        </p>
+                                    {% endfor %}
+                                </div>
+
+
+                                <!-- SELECTED CATEGORY SUMMARY -->
+
+                                <div
+                                    id="category-summary"
+                                    class="hidden mt-6 rounded-2xl
+                                           border border-[#2F80ED]/30
+                                           bg-[#111827] p-5"
+                                >
+                                    <div
+                                        class="flex flex-col sm:flex-row
+                                               sm:items-start
+                                               sm:justify-between gap-4"
+                                    >
+                                        <div>
+                                            <p
+                                                id="category-link-code"
+                                                class="text-xs uppercase
+                                                       tracking-widest
+                                                       text-blue-300
+                                                       font-bold"
+                                            ></p>
+
+                                            <h3
+                                                id="category-display-name"
+                                                class="text-xl font-bold
+                                                       text-white mt-1"
+                                            ></h3>
+
+                                            <p
+                                                id="category-description"
+                                                class="text-slate-400
+                                                       text-sm mt-2"
+                                            ></p>
+                                        </div>
+
+                                        <div class="sm:text-right">
+                                            <p
+                                                id="category-price"
+                                                class="text-2xl
+                                                       font-extrabold
+                                                       text-[#00A99D]"
+                                            ></p>
+
+                                            <p
+                                                id="category-currency-note"
+                                                class="text-xs
+                                                       text-slate-500 mt-1"
+                                            ></p>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <!-- CONTRIBUTION TIER -->
+
+                                <div
+                                    id="contribution-tier-wrapper"
+                                    class="hidden mt-6"
+                                >
+                                    <label
+                                        for="{{ form.selected_contribution_tier.id_for_label }}"
+                                        class="block text-slate-200
+                                               font-semibold mb-2"
+                                    >
+                                        {{ form.selected_contribution_tier.label }}
+                                    </label>
+
+                                    {{ form.selected_contribution_tier }}
+
+                                    <p class="text-slate-400 text-sm mt-2">
+                                        Choose one suggested contribution,
+                                        or enter your own amount below.
+                                    </p>
+
+                                    {% for error in form.selected_contribution_tier.errors %}
+                                        <p class="text-red-400 text-sm mt-2">
+                                            {{ error }}
+                                        </p>
+                                    {% endfor %}
+                                </div>
+
+
+                                <!-- CUSTOM AMOUNT -->
+
+                                <div
+                                    id="custom-amount-wrapper"
+                                    class="hidden mt-6"
+                                >
+                                    <label
+                                        for="{{ form.custom_amount.id_for_label }}"
+                                        class="block text-slate-200
+                                               font-semibold mb-2"
+                                    >
+                                        {{ form.custom_amount.label }}
+                                    </label>
+
+                                    <div class="relative">
+                                        <span
+                                            id="custom-amount-prefix"
+                                            class="absolute left-4 top-1/2
+                                                   -translate-y-1/2
+                                                   text-slate-500
+                                                   font-semibold"
+                                        >
+                                            KSh
+                                        </span>
+
+                                        <div id="custom-amount-field">
+                                            {{ form.custom_amount }}
+                                        </div>
+                                    </div>
+
+                                    <p
+                                        id="custom-amount-help"
+                                        class="text-slate-400
+                                               text-sm mt-2"
+                                    >
+                                        Enter the amount you would like
+                                        to contribute.
+                                    </p>
+
+                                    {% for error in form.custom_amount.errors %}
+                                        <p class="text-red-400 text-sm mt-2">
+                                            {{ error }}
+                                        </p>
+                                    {% endfor %}
+                                </div>
+                            </section>
+
+
+                            <div
+                                class="border-t
+                                       border-[#2F80ED]/20
+                                       my-10"
+                            ></div>
+
+
+                            <!-- ==========================================
+                                 CONTACT INFORMATION
+                            =========================================== -->
+
+                            <section>
+                                <div class="mb-8">
+                                    <p
+                                        class="text-[#00A99D]
+                                               font-bold uppercase
+                                               tracking-widest mb-2"
+                                    >
+                                        Step 2
+                                    </p>
+
+                                    <h2
+                                        class="text-2xl md:text-3xl
+                                               font-extrabold
+                                               text-white mb-3"
+                                    >
+                                        Contact Information
+                                    </h2>
+
+                                    <p class="text-slate-300">
+                                        Enter the person or organization
+                                        responsible for this registration,
+                                        booking, or contribution.
+                                    </p>
+                                </div>
+
+                                <div
+                                    class="grid lg:grid-cols-2 gap-8"
+                                >
+                                    <div class="lg:col-span-2">
+                                        <label
+                                            for="{{ form.full_name.id_for_label }}"
+                                            class="block text-slate-200
+                                                   font-semibold mb-2"
+                                        >
+                                            {{ form.full_name.label }}
+                                            <span class="text-red-400">*</span>
+                                        </label>
+
+                                        {{ form.full_name }}
+
+                                        {% for error in form.full_name.errors %}
+                                            <p class="text-red-400 text-sm mt-2">
+                                                {{ error }}
+                                            </p>
+                                        {% endfor %}
+                                    </div>
+
+                                    <div class="lg:col-span-2">
+                                        <label
+                                            for="{{ form.organization_or_title.id_for_label }}"
+                                            class="block text-slate-200
+                                                   font-semibold mb-2"
+                                        >
+                                            {{ form.organization_or_title.label }}
+                                        </label>
+
+                                        {{ form.organization_or_title }}
+
+                                        {% for error in form.organization_or_title.errors %}
+                                            <p class="text-red-400 text-sm mt-2">
+                                                {{ error }}
+                                            </p>
+                                        {% endfor %}
+                                    </div>
+
+                                    <div>
+                                        <label
+                                            for="{{ form.phone_number.id_for_label }}"
+                                            class="block text-slate-200
+                                                   font-semibold mb-2"
+                                        >
+                                            {{ form.phone_number.label }}
+                                            <span class="text-red-400">*</span>
+                                        </label>
+
+                                        {{ form.phone_number }}
+
+                                        {% for error in form.phone_number.errors %}
+                                            <p class="text-red-400 text-sm mt-2">
+                                                {{ error }}
+                                            </p>
+                                        {% endfor %}
+                                    </div>
+
+                                    <div>
+                                        <label
+                                            for="{{ form.email.id_for_label }}"
+                                            class="block text-slate-200
+                                                   font-semibold mb-2"
+                                        >
+                                            {{ form.email.label }}
+                                            <span class="text-red-400">*</span>
+                                        </label>
+
+                                        {{ form.email }}
+
+                                        {% for error in form.email.errors %}
+                                            <p class="text-red-400 text-sm mt-2">
+                                                {{ error }}
+                                            </p>
+                                        {% endfor %}
+                                    </div>
+
+                                    <div class="lg:col-span-2">
+                                        <label
+                                            for="{{ form.national_id_number.id_for_label }}"
+                                            class="block text-slate-200
+                                                   font-semibold mb-2"
+                                        >
+                                            {{ form.national_id_number.label }}
+
+                                            <span class="text-slate-400 text-sm">
+                                                (Optional for standard registration)
+                                            </span>
+                                        </label>
+
+                                        {{ form.national_id_number }}
+
+                                        {% for error in form.national_id_number.errors %}
+                                            <p class="text-red-400 text-sm mt-2">
+                                                {{ error }}
+                                            </p>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </section>
+
+
+                            <div
+                                class="border-t
+                                       border-[#2F80ED]/20
+                                       my-10"
+                            ></div>
+
+
+                            <!-- ==========================================
+                                 LOCATION INFORMATION
+                            =========================================== -->
+
+                            <section>
+                                <div class="mb-8">
+                                    <p
+                                        class="text-[#00A99D]
+                                               font-bold uppercase
+                                               tracking-widest mb-2"
+                                    >
+                                        Step 3
+                                    </p>
+
+                                    <h2
+                                        class="text-2xl font-bold
+                                               text-white mb-2"
+                                    >
+                                        Location Information
+                                    </h2>
+
+                                    <p class="text-slate-300">
+                                        Tell us where you or your
+                                        organization are registering from.
+                                    </p>
+                                </div>
+
+                                <div
+                                    class="grid lg:grid-cols-3 gap-8"
+                                >
+                                    <div>
+                                        <label
+                                            for="{{ form.county.id_for_label }}"
+                                            class="block text-slate-200
+                                                   font-semibold mb-2"
+                                        >
+                                            {{ form.county.label }}
+                                            <span class="text-red-400">*</span>
+                                        </label>
+
+                                        {{ form.county }}
+
+                                        {% for error in form.county.errors %}
+                                            <p class="text-red-400 text-sm mt-2">
+                                                {{ error }}
+                                            </p>
+                                        {% endfor %}
+                                    </div>
+
+                                    <div>
+                                        <label
+                                            for="{{ form.sub_county.id_for_label }}"
+                                            class="block text-slate-200
+                                                   font-semibold mb-2"
+                                        >
+                                            {{ form.sub_county.label }}
+
+                                            <span class="text-slate-400 text-sm">
+                                                (Optional)
+                                            </span>
+                                        </label>
+
+                                        {{ form.sub_county }}
+
+                                        {% for error in form.sub_county.errors %}
+                                            <p class="text-red-400 text-sm mt-2">
+                                                {{ error }}
+                                            </p>
+                                        {% endfor %}
+                                    </div>
+
+                                    <div>
+                                        <label
+                                            for="{{ form.ward.id_for_label }}"
+                                            class="block text-slate-200
+                                                   font-semibold mb-2"
+                                        >
+                                            {{ form.ward.label }}
+
+                                            <span class="text-slate-400 text-sm">
+                                                (Optional)
+                                            </span>
+                                        </label>
+
+                                        {{ form.ward }}
+
+                                        {% for error in form.ward.errors %}
+                                            <p class="text-red-400 text-sm mt-2">
+                                                {{ error }}
+                                            </p>
+                                        {% endfor %}
+                                    </div>
+
+                                    <div class="lg:col-span-3">
+                                        <label
+                                            for="{{ form.additional_information.id_for_label }}"
+                                            class="block text-slate-200
+                                                   font-semibold mb-2"
+                                        >
+                                            {{ form.additional_information.label }}
+
+                                            <span class="text-slate-400 text-sm">
+                                                (Optional)
+                                            </span>
+                                        </label>
+
+                                        {{ form.additional_information }}
+
+                                        {% for error in form.additional_information.errors %}
+                                            <p class="text-red-400 text-sm mt-2">
+                                                {{ error }}
+                                            </p>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </section>
+
+
+                            <!-- ==========================================
+                                 VIP INTAKE
+                            =========================================== -->
+
+                            {% if vip_form %}
+                                <section
+                                    id="vip-section"
+                                    class="hidden"
+                                >
+                                    <div
+                                        class="border-t
+                                               border-[#2F80ED]/20
+                                               my-10"
+                                    ></div>
+
+                                    <div
+                                        class="rounded-3xl
+                                               border border-[#F4A024]/30
+                                               bg-[#F4A024]/5
+                                               p-5 md:p-8"
+                                    >
+                                        <div class="mb-8">
+                                            <span
+                                                class="inline-flex
+                                                       rounded-full
+                                                       bg-[#F4A024]/15
+                                                       border border-[#F4A024]/30
+                                                       px-4 py-1.5
+                                                       text-sm font-bold
+                                                       text-[#F4A024]"
+                                            >
+                                                VIP Intake
+                                            </span>
+
+                                            <h2
+                                                class="text-2xl md:text-3xl
+                                                       font-extrabold
+                                                       text-white mt-4 mb-3"
+                                            >
+                                                Protocol and Logistics
+                                            </h2>
+
+                                            <p class="text-slate-300">
+                                                Complete these fields for
+                                                protocol, security, hospitality,
+                                                transport, and programme planning.
+                                            </p>
+                                        </div>
+
+
+                                        <!-- IDENTITY AND PROTOCOL -->
+
+                                        <div>
+                                            <h3
+                                                class="text-xl font-bold
+                                                       text-white mb-5"
+                                            >
+                                                Identity and Protocol
+                                            </h3>
+
+                                            <div
+                                                class="grid lg:grid-cols-2
+                                                       gap-7"
+                                            >
+                                                <div>
+                                                    <label
+                                                        for="{{ vip_form.preferred_address.id_for_label }}"
+                                                        class="block text-slate-200
+                                                               font-semibold mb-2"
+                                                    >
+                                                        {{ vip_form.preferred_address.label }}
+                                                        <span class="text-red-400">*</span>
+                                                    </label>
+
+                                                    {{ vip_form.preferred_address }}
+
+                                                    {% for error in vip_form.preferred_address.errors %}
+                                                        <p class="text-red-400 text-sm mt-2">
+                                                            {{ error }}
+                                                        </p>
+                                                    {% endfor %}
+                                                </div>
+
+                                                <div>
+                                                    <label
+                                                        for="{{ vip_form.passport_or_id.id_for_label }}"
+                                                        class="block text-slate-200
+                                                               font-semibold mb-2"
+                                                    >
+                                                        {{ vip_form.passport_or_id.label }}
+                                                    </label>
+
+                                                    {{ vip_form.passport_or_id }}
+
+                                                    <p
+                                                        class="text-slate-400
+                                                               text-xs mt-2"
+                                                    >
+                                                        Required for diplomats
+                                                        and international delegates.
+                                                    </p>
+
+                                                    {% for error in vip_form.passport_or_id.errors %}
+                                                        <p class="text-red-400 text-sm mt-2">
+                                                            {{ error }}
+                                                        </p>
+                                                    {% endfor %}
+                                                </div>
+
+                                                <div class="lg:col-span-2">
+                                                    <label
+                                                        for="{{ vip_form.official_bio.id_for_label }}"
+                                                        class="block text-slate-200
+                                                               font-semibold mb-2"
+                                                    >
+                                                        {{ vip_form.official_bio.label }}
+                                                    </label>
+
+                                                    {{ vip_form.official_bio }}
+
+                                                    {% for error in vip_form.official_bio.errors %}
+                                                        <p class="text-red-400 text-sm mt-2">
+                                                            {{ error }}
+                                                        </p>
+                                                    {% endfor %}
+                                                </div>
+
+                                                <div class="lg:col-span-2">
+                                                    <label
+                                                        for="{{ vip_form.headshot.id_for_label }}"
+                                                        class="block text-slate-200
+                                                               font-semibold mb-2"
+                                                    >
+                                                        {{ vip_form.headshot.label }}
+                                                    </label>
+
+                                                    {{ vip_form.headshot }}
+
+                                                    <p
+                                                        class="text-slate-400
+                                                               text-xs mt-2"
+                                                    >
+                                                        JPG, PNG, or WebP.
+                                                        Maximum size: 5 MB.
+                                                    </p>
+
+                                                    {% for error in vip_form.headshot.errors %}
+                                                        <p class="text-red-400 text-sm mt-2">
+                                                            {{ error }}
+                                                        </p>
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div
+                                            class="border-t
+                                                   border-[#F4A024]/20
+                                                   my-8"
+                                        ></div>
+
+
+                                        <!-- SECURITY AND LOGISTICS -->
+
+                                        <div>
+                                            <h3
+                                                class="text-xl font-bold
+                                                       text-white mb-5"
+                                            >
+                                                Security and Logistics
+                                            </h3>
+
+                                            <div
+                                                class="grid lg:grid-cols-2
+                                                       gap-7"
+                                            >
+                                                <div>
+                                                    <label
+                                                        for="{{ vip_form.security_detail_size.id_for_label }}"
+                                                        class="block text-slate-200
+                                                               font-semibold mb-2"
+                                                    >
+                                                        {{ vip_form.security_detail_size.label }}
+                                                    </label>
+
+                                                    {{ vip_form.security_detail_size }}
+
+                                                    {% for error in vip_form.security_detail_size.errors %}
+                                                        <p class="text-red-400 text-sm mt-2">
+                                                            {{ error }}
+                                                        </p>
+                                                    {% endfor %}
+                                                </div>
+
+                                                <div>
+                                                    <label
+                                                        for="{{ vip_form.accompanying_aides_count.id_for_label }}"
+                                                        class="block text-slate-200
+                                                               font-semibold mb-2"
+                                                    >
+                                                        {{ vip_form.accompanying_aides_count.label }}
+                                                    </label>
+
+                                                    {{ vip_form.accompanying_aides_count }}
+
+                                                    <p
+                                                        class="text-slate-400
+                                                               text-xs mt-2"
+                                                    >
+                                                        First aide complimentary;
+                                                        second and third aides
+                                                        KSh 3,000 each; fourth
+                                                        aide onward KSh 5,000 each.
+                                                    </p>
+
+                                                    {% for error in vip_form.accompanying_aides_count.errors %}
+                                                        <p class="text-red-400 text-sm mt-2">
+                                                            {{ error }}
+                                                        </p>
+                                                    {% endfor %}
+                                                </div>
+
+                                                <div>
+                                                    <label
+                                                        for="{{ vip_form.vehicle_details.id_for_label }}"
+                                                        class="block text-slate-200
+                                                               font-semibold mb-2"
+                                                    >
+                                                        {{ vip_form.vehicle_details.label }}
+                                                    </label>
+
+                                                    {{ vip_form.vehicle_details }}
+
+                                                    {% for error in vip_form.vehicle_details.errors %}
+                                                        <p class="text-red-400 text-sm mt-2">
+                                                            {{ error }}
+                                                        </p>
+                                                    {% endfor %}
+                                                </div>
+
+                                                <div>
+                                                    <label
+                                                        for="{{ vip_form.parking_requirements.id_for_label }}"
+                                                        class="block text-slate-200
+                                                               font-semibold mb-2"
+                                                    >
+                                                        {{ vip_form.parking_requirements.label }}
+                                                    </label>
+
+                                                    {{ vip_form.parking_requirements }}
+
+                                                    {% for error in vip_form.parking_requirements.errors %}
+                                                        <p class="text-red-400 text-sm mt-2">
+                                                            {{ error }}
+                                                        </p>
+                                                    {% endfor %}
+                                                </div>
+
+                                                <div>
+                                                    <label
+                                                        for="{{ vip_form.arrival_date.id_for_label }}"
+                                                        class="block text-slate-200
+                                                               font-semibold mb-2"
+                                                    >
+                                                        {{ vip_form.arrival_date.label }}
+                                                    </label>
+
+                                                    {{ vip_form.arrival_date }}
+
+                                                    {% for error in vip_form.arrival_date.errors %}
+                                                        <p class="text-red-400 text-sm mt-2">
+                                                            {{ error }}
+                                                        </p>
+                                                    {% endfor %}
+                                                </div>
+
+                                                <div>
+                                                    <label
+                                                        for="{{ vip_form.arrival_time.id_for_label }}"
+                                                        class="block text-slate-200
+                                                               font-semibold mb-2"
+                                                    >
+                                                        {{ vip_form.arrival_time.label }}
+                                                    </label>
+
+                                                    {{ vip_form.arrival_time }}
+
+                                                    {% for error in vip_form.arrival_time.errors %}
+                                                        <p class="text-red-400 text-sm mt-2">
+                                                            {{ error }}
+                                                        </p>
+                                                    {% endfor %}
+                                                </div>
+
+                                                <div>
+                                                    <label
+                                                        for="{{ vip_form.departure_date.id_for_label }}"
+                                                        class="block text-slate-200
+                                                               font-semibold mb-2"
+                                                    >
+                                                        {{ vip_form.departure_date.label }}
+                                                    </label>
+
+                                                    {{ vip_form.departure_date }}
+
+                                                    {% for error in vip_form.departure_date.errors %}
+                                                        <p class="text-red-400 text-sm mt-2">
+                                                            {{ error }}
+                                                        </p>
+                                                    {% endfor %}
+                                                </div>
+
+                                                <div>
+                                                    <label
+                                                        for="{{ vip_form.departure_time.id_for_label }}"
+                                                        class="block text-slate-200
+                                                               font-semibold mb-2"
+                                                    >
+                                                        {{ vip_form.departure_time.label }}
+                                                    </label>
+
+                                                    {{ vip_form.departure_time }}
+
+                                                    {% for error in vip_form.departure_time.errors %}
+                                                        <p class="text-red-400 text-sm mt-2">
+                                                            {{ error }}
+                                                        </p>
+                                                    {% endfor %}
+                                                </div>
+
+                                                <div
+                                                    class="lg:col-span-2
+                                                           rounded-2xl
+                                                           border border-white/10
+                                                           bg-[#111827] p-5"
+                                                >
+                                                    <div
+                                                        class="flex items-start gap-3"
+                                                    >
+                                                        <div class="mt-1">
+                                                            {{ vip_form.transport_coordination_needed }}
+                                                        </div>
+
+                                                        <label
+                                                            for="{{ vip_form.transport_coordination_needed.id_for_label }}"
+                                                            class="text-slate-200
+                                                                   leading-7 cursor-pointer"
+                                                        >
+                                                            {{ vip_form.transport_coordination_needed.label }}
+                                                        </label>
+                                                    </div>
+
+                                                    {% for error in vip_form.transport_coordination_needed.errors %}
+                                                        <p class="text-red-400 text-sm mt-2">
+                                                            {{ error }}
+                                                        </p>
+                                                    {% endfor %}
+                                                </div>
+
+                                                <div
+                                                    id="transport-details-wrapper"
+                                                    class="lg:col-span-2"
+                                                >
+                                                    <label
+                                                        for="{{ vip_form.transport_coordination_details.id_for_label }}"
+                                                        class="block text-slate-200
+                                                               font-semibold mb-2"
+                                                    >
+                                                        {{ vip_form.transport_coordination_details.label }}
+                                                    </label>
+
+                                                    {{ vip_form.transport_coordination_details }}
+
+                                                    {% for error in vip_form.transport_coordination_details.errors %}
+                                                        <p class="text-red-400 text-sm mt-2">
+                                                            {{ error }}
+                                                        </p>
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div
+                                            class="border-t
+                                                   border-[#F4A024]/20
+                                                   my-8"
+                                        ></div>
+
+
+                                        <!-- HOSPITALITY -->
+
+                                        <div>
+                                            <h3
+                                                class="text-xl font-bold
+                                                       text-white mb-5"
+                                            >
+                                                Hospitality
+                                            </h3>
+
+                                            <div
+                                                class="grid lg:grid-cols-2
+                                                       gap-7"
+                                            >
+                                                <div class="lg:col-span-2">
+                                                    <label
+                                                        for="{{ vip_form.dietary_requirements.id_for_label }}"
+                                                        class="block text-slate-200
+                                                               font-semibold mb-2"
+                                                    >
+                                                        {{ vip_form.dietary_requirements.label }}
+                                                    </label>
+
+                                                    {{ vip_form.dietary_requirements }}
+
+                                                    {% for error in vip_form.dietary_requirements.errors %}
+                                                        <p class="text-red-400 text-sm mt-2">
+                                                            {{ error }}
+                                                        </p>
+                                                    {% endfor %}
+                                                </div>
+
+                                                <div
+                                                    class="lg:col-span-2
+                                                           rounded-2xl
+                                                           border border-white/10
+                                                           bg-[#111827] p-5"
+                                                >
+                                                    <div
+                                                        class="flex items-start gap-3"
+                                                    >
+                                                        <div class="mt-1">
+                                                            {{ vip_form.accommodation_needed }}
+                                                        </div>
+
+                                                        <label
+                                                            for="{{ vip_form.accommodation_needed.id_for_label }}"
+                                                            class="text-slate-200
+                                                                   leading-7 cursor-pointer"
+                                                        >
+                                                            {{ vip_form.accommodation_needed.label }}
+                                                        </label>
+                                                    </div>
+
+                                                    {% for error in vip_form.accommodation_needed.errors %}
+                                                        <p class="text-red-400 text-sm mt-2">
+                                                            {{ error }}
+                                                        </p>
+                                                    {% endfor %}
+                                                </div>
+
+                                                <div
+                                                    id="accommodation-details-wrapper"
+                                                    class="lg:col-span-2"
+                                                >
+                                                    <label
+                                                        for="{{ vip_form.accommodation_details.id_for_label }}"
+                                                        class="block text-slate-200
+                                                               font-semibold mb-2"
+                                                    >
+                                                        {{ vip_form.accommodation_details.label }}
+                                                    </label>
+
+                                                    {{ vip_form.accommodation_details }}
+
+                                                    {% for error in vip_form.accommodation_details.errors %}
+                                                        <p class="text-red-400 text-sm mt-2">
+                                                            {{ error }}
+                                                        </p>
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div
+                                            class="border-t
+                                                   border-[#F4A024]/20
+                                                   my-8"
+                                        ></div>
+
+
+                                        <!-- PROGRAMME -->
+
+                                        <div>
+                                            <h3
+                                                class="text-xl font-bold
+                                                       text-white mb-5"
+                                            >
+                                                Programme Participation
+                                            </h3>
+
+                                            <div class="space-y-6">
+                                                <div
+                                                    class="rounded-2xl
+                                                           border border-white/10
+                                                           bg-[#111827] p-5"
+                                                >
+                                                    <div
+                                                        class="flex items-start gap-3"
+                                                    >
+                                                        <div class="mt-1">
+                                                            {{ vip_form.is_speaking }}
+                                                        </div>
+
+                                                        <label
+                                                            for="{{ vip_form.is_speaking.id_for_label }}"
+                                                            class="text-slate-200
+                                                                   leading-7 cursor-pointer"
+                                                        >
+                                                            {{ vip_form.is_speaking.label }}
+                                                        </label>
+                                                    </div>
+
+                                                    {% for error in vip_form.is_speaking.errors %}
+                                                        <p class="text-red-400 text-sm mt-2">
+                                                            {{ error }}
+                                                        </p>
+                                                    {% endfor %}
+                                                </div>
+
+                                                <div
+                                                    id="speaking-details-wrapper"
+                                                >
+                                                    <label
+                                                        for="{{ vip_form.speaking_or_presentation_notes.id_for_label }}"
+                                                        class="block text-slate-200
+                                                               font-semibold mb-2"
+                                                    >
+                                                        {{ vip_form.speaking_or_presentation_notes.label }}
+                                                    </label>
+
+                                                    {{ vip_form.speaking_or_presentation_notes }}
+
+                                                    {% for error in vip_form.speaking_or_presentation_notes.errors %}
+                                                        <p class="text-red-400 text-sm mt-2">
+                                                            {{ error }}
+                                                        </p>
+                                                    {% endfor %}
+                                                </div>
+
+                                                <div>
+                                                    <label
+                                                        for="{{ vip_form.specific_request.id_for_label }}"
+                                                        class="block text-slate-200
+                                                               font-semibold mb-2"
+                                                    >
+                                                        {{ vip_form.specific_request.label }}
+                                                    </label>
+
+                                                    {{ vip_form.specific_request }}
+
+                                                    {% for error in vip_form.specific_request.errors %}
+                                                        <p class="text-red-400 text-sm mt-2">
+                                                            {{ error }}
+                                                        </p>
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div
+                                            class="border-t
+                                                   border-[#F4A024]/20
+                                                   my-8"
+                                        ></div>
+
+
+                                        <!-- VIP ADD-ONS -->
+
+                                        <div>
+                                            <h3
+                                                class="text-xl font-bold
+                                                       text-white mb-5"
+                                            >
+                                                Optional VIP Add-ons
+                                            </h3>
+
+                                            <div
+                                                class="grid md:grid-cols-2
+                                                       gap-5"
+                                            >
+                                                <div
+                                                    class="rounded-2xl
+                                                           border border-white/10
+                                                           bg-[#111827] p-5"
+                                                >
+                                                    <div
+                                                        class="flex items-start gap-3"
+                                                    >
+                                                        <div class="mt-1">
+                                                            {{ vip_form.add_on_meet_greet }}
+                                                        </div>
+
+                                                        <label
+                                                            for="{{ vip_form.add_on_meet_greet.id_for_label }}"
+                                                            class="text-slate-200
+                                                                   leading-7 cursor-pointer"
+                                                        >
+                                                            {{ vip_form.add_on_meet_greet.label }}
+                                                        </label>
+                                                    </div>
+
+                                                    {% for error in vip_form.add_on_meet_greet.errors %}
+                                                        <p class="text-red-400 text-sm mt-2">
+                                                            {{ error }}
+                                                        </p>
+                                                    {% endfor %}
+                                                </div>
+
+                                                <div
+                                                    class="rounded-2xl
+                                                           border border-white/10
+                                                           bg-[#111827] p-5"
+                                                >
+                                                    <div
+                                                        class="flex items-start gap-3"
+                                                    >
+                                                        <div class="mt-1">
+                                                            {{ vip_form.add_on_stage_shoutout }}
+                                                        </div>
+
+                                                        <label
+                                                            for="{{ vip_form.add_on_stage_shoutout.id_for_label }}"
+                                                            class="text-slate-200
+                                                                   leading-7 cursor-pointer"
+                                                        >
+                                                            {{ vip_form.add_on_stage_shoutout.label }}
+                                                        </label>
+                                                    </div>
+
+                                                    {% for error in vip_form.add_on_stage_shoutout.errors %}
+                                                        <p class="text-red-400 text-sm mt-2">
+                                                            {{ error }}
+                                                        </p>
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
+
+                                            <div
+                                                class="mt-5 rounded-2xl
+                                                       border border-[#F4A024]/30
+                                                       bg-[#F4A024]/10
+                                                       p-5"
+                                            >
+                                                <p
+                                                    class="text-sm
+                                                           text-[#F4A024]"
+                                                >
+                                                    Security personnel accompanying
+                                                    a sitting Governor, Senator,
+                                                    MP, or Diplomat are not charged.
+                                                    Motorcade and security vehicle
+                                                    parking are complimentary with
+                                                    advance notice.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            {% endif %}
+
+
+                            <div
+                                class="border-t
+                                       border-[#2F80ED]/20
+                                       my-10"
+                            ></div>
+
+
+                            <!-- ==========================================
+                                 CONSENT
+                            =========================================== -->
+
+                            <section>
+                                <div
+                                    class="bg-[#111827]
+                                           rounded-2xl
+                                           p-5 md:p-6
+                                           border border-[#00A99D]/30"
+                                >
+                                    <div
+                                        class="flex items-start gap-3"
+                                    >
+                                        <div class="mt-1">
+                                            {{ form.consent_to_record_storage }}
+                                        </div>
+
+                                        <div>
+                                            <label
+                                                for="{{ form.consent_to_record_storage.id_for_label }}"
+                                                class="text-slate-200
+                                                       leading-7 cursor-pointer"
+                                            >
+                                                {{ form.consent_to_record_storage.label }}
+                                                <span class="text-red-400">*</span>
+                                            </label>
+
+                                            {% for error in form.consent_to_record_storage.errors %}
+                                                <p class="text-red-400 text-sm mt-2">
+                                                    {{ error }}
+                                                </p>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+
+
+                            <!-- SUBMIT BUTTON -->
+
+                            <button
+                                type="submit"
+                                id="submit-button"
+                                class="w-full mt-8
+                                       bg-[#00A99D]
+                                       text-white py-4
+                                       rounded-full
+                                       font-bold text-lg
+                                       hover:bg-[#008F85]
+                                       transition shadow-lg
+                                       disabled:opacity-50
+                                       disabled:cursor-not-allowed"
+                            >
+                                Continue to Payment
+                            </button>
+
+                            <p
+                                class="text-center text-sm
+                                       text-slate-400 mt-5"
+                            >
+                                Fields marked with an asterisk are required.
+                                Your booking remains pending until payment
+                                is completed or confirmed.
+                            </p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+
+    <!-- ==========================================
+         FOOTER
+    =========================================== -->
+
+    <footer
+        class="bg-[#0B1120]
+               text-white py-8 px-6
+               text-center
+               border-t border-[#2F80ED]/40"
+    >
+        <p>
+            &copy; 2026 TechShe Can Africa.
+            All Rights Reserved.
+        </p>
+    </footer>
+
+
+    <!-- ==========================================
+         CATEGORY DATA
+    =========================================== -->
+
+    <script>
+        const registrationCategories = {
+            {% for category in categories %}
+                "{{ category.id }}": {
+                    "name": "{{ category.name|escapejs }}",
+                    "linkId": "{{ category.link_id|escapejs }}",
+                    "description": "{{ category.description|default:''|escapejs }}",
+                    "group": "{{ category.group|escapejs }}",
+                    "currency": "{{ category.currency|escapejs }}",
+                    "basePrice": "{{ category.base_price }}",
+                    "isVip": {% if category.is_vip %}true{% else %}false{% endif %},
+                    "isCustomAmount": {% if category.is_custom_amount %}true{% else %}false{% endif %}
+                }{% if not forloop.last %},{% endif %}
+            {% endfor %}
+        };
+
+        const contributionTierCategories = {
+            {% for tier in form.fields.selected_contribution_tier.queryset %}
+                "{{ tier.id }}": "{{ tier.category_id }}"
+                {% if not forloop.last %},{% endif %}
+            {% endfor %}
+        };
+    </script>
+
+
+    <!-- ==========================================
+         FORM BEHAVIOUR
+    =========================================== -->
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const categorySelect = document.getElementById(
+                "{{ form.category_item.id_for_label }}"
+            );
+
+            const tierSelect = document.getElementById(
+                "{{ form.selected_contribution_tier.id_for_label }}"
+            );
+
+            const customAmountInput = document.getElementById(
+                "{{ form.custom_amount.id_for_label }}"
+            );
+
+            const contributionTierWrapper = document.getElementById(
+                "contribution-tier-wrapper"
+            );
+
+            const customAmountWrapper = document.getElementById(
+                "custom-amount-wrapper"
+            );
+
+            const vipSection = document.getElementById(
+                "vip-section"
+            );
+
+            const categorySummary = document.getElementById(
+                "category-summary"
+            );
+
+            const categoryLinkCode = document.getElementById(
+                "category-link-code"
+            );
+
+            const categoryDisplayName = document.getElementById(
+                "category-display-name"
+            );
+
+            const categoryDescription = document.getElementById(
+                "category-description"
+            );
+
+            const categoryPrice = document.getElementById(
+                "category-price"
+            );
+
+            const categoryCurrencyNote = document.getElementById(
+                "category-currency-note"
+            );
+
+            const customAmountPrefix = document.getElementById(
+                "custom-amount-prefix"
+            );
+
+            const customAmountHelp = document.getElementById(
+                "custom-amount-help"
+            );
+
+            const submitButton = document.getElementById(
+                "submit-button"
+            );
+
+            const accommodationCheckbox = document.getElementById(
+                "{{ vip_form.accommodation_needed.id_for_label }}"
+            );
+
+            const accommodationDetailsWrapper = document.getElementById(
+                "accommodation-details-wrapper"
+            );
+
+            const transportCheckbox = document.getElementById(
+                "{{ vip_form.transport_coordination_needed.id_for_label }}"
+            );
+
+            const transportDetailsWrapper = document.getElementById(
+                "transport-details-wrapper"
+            );
+
+            const speakingCheckbox = document.getElementById(
+                "{{ vip_form.is_speaking.id_for_label }}"
+            );
+
+            const speakingDetailsWrapper = document.getElementById(
+                "speaking-details-wrapper"
+            );
+
+
+            function formatMoney(currency, amount) {
+                const number = Number(amount || 0);
+
+                const formatted = new Intl.NumberFormat(
+                    "en-KE",
+                    {
+                        maximumFractionDigits: 0
+                    }
+                ).format(number);
+
+                const prefix = currency === "KES"
+                    ? "KSh"
+                    : currency;
+
+                return `${prefix} ${formatted}`;
+            }
+
+
+            function filterContributionTiers(categoryId) {
+                if (!tierSelect) {
+                    return;
+                }
+
+                let firstVisibleOption = null;
+                let selectedOptionVisible = false;
+
+                Array.from(tierSelect.options).forEach(function (option) {
+                    if (!option.value) {
+                        option.hidden = false;
+                        option.disabled = false;
+                        return;
+                    }
+
+                    const tierCategoryId =
+                        contributionTierCategories[option.value];
+
+                    const shouldShow =
+                        String(tierCategoryId) === String(categoryId);
+
+                    option.hidden = !shouldShow;
+                    option.disabled = !shouldShow;
+
+                    if (shouldShow && !firstVisibleOption) {
+                        firstVisibleOption = option;
+                    }
+
+                    if (
+                        shouldShow
+                        && option.selected
+                    ) {
+                        selectedOptionVisible = true;
+                    }
+                });
+
+                if (!selectedOptionVisible) {
+                    tierSelect.value = "";
+                }
+            }
+
+
+            function updateCategoryDisplay() {
+                if (!categorySelect) {
+                    return;
+                }
+
+                const categoryId = categorySelect.value;
+                const category = registrationCategories[categoryId];
+
+                if (!category) {
+                    if (categorySummary) {
+                        categorySummary.classList.add("hidden");
+                    }
+
+                    if (contributionTierWrapper) {
+                        contributionTierWrapper.classList.add("hidden");
+                    }
+
+                    if (customAmountWrapper) {
+                        customAmountWrapper.classList.add("hidden");
+                    }
+
+                    if (vipSection) {
+                        vipSection.classList.add("hidden");
+                    }
+
+                    if (submitButton) {
+                        submitButton.textContent = "Continue to Payment";
+                    }
+
+                    return;
+                }
+
+                if (categorySummary) {
+                    categorySummary.classList.remove("hidden");
+                }
+
+                if (categoryLinkCode) {
+                    categoryLinkCode.textContent = category.linkId;
+                }
+
+                if (categoryDisplayName) {
+                    categoryDisplayName.textContent = category.name;
+                }
+
+                if (categoryDescription) {
+                    categoryDescription.textContent =
+                        category.description || "";
+                }
+
+                if (category.isCustomAmount) {
+                    if (Number(category.basePrice) > 0) {
+                        categoryPrice.textContent =
+                            `From ${formatMoney(
+                                category.currency,
+                                category.basePrice
+                            )}`;
+                    } else {
+                        categoryPrice.textContent = "Custom Amount";
+                    }
+
+                    categoryCurrencyNote.textContent =
+                        `Payments processed in ${category.currency}.`;
+
+                    contributionTierWrapper.classList.remove("hidden");
+                    customAmountWrapper.classList.remove("hidden");
+
+                    filterContributionTiers(categoryId);
+
+                    if (customAmountPrefix) {
+                        customAmountPrefix.textContent =
+                            category.currency === "KES"
+                                ? "KSh"
+                                : category.currency;
+                    }
+
+                    if (customAmountInput) {
+                        customAmountInput.style.paddingLeft = "4.5rem";
+
+                        if (Number(category.basePrice) > 0) {
+                            customAmountInput.min =
+                                category.basePrice;
+
+                            customAmountHelp.textContent =
+                                `Minimum custom amount: ${formatMoney(
+                                    category.currency,
+                                    category.basePrice
+                                )}.`;
+                        } else {
+                            customAmountInput.min = "1";
+
+                            customAmountHelp.textContent =
+                                "Enter the amount you would like to contribute.";
+                        }
+                    }
+                } else {
+                    categoryPrice.textContent =
+                        formatMoney(
+                            category.currency,
+                            category.basePrice
+                        );
+
+                    categoryCurrencyNote.textContent =
+                        `Payments processed in ${category.currency}.`;
+
+                    contributionTierWrapper.classList.add("hidden");
+                    customAmountWrapper.classList.add("hidden");
+
+                    if (tierSelect) {
+                        tierSelect.value = "";
+                    }
+
+                    if (customAmountInput) {
+                        customAmountInput.value = "";
+                    }
+                }
+
+                if (vipSection) {
+                    if (category.isVip) {
+                        vipSection.classList.remove("hidden");
+                    } else {
+                        vipSection.classList.add("hidden");
+                    }
+                }
+
+                if (submitButton) {
+                    if (category.group === "DONATION") {
+                        submitButton.textContent = "Continue With Contribution";
+                    } else if (category.group === "SPONSORSHIP") {
+                        submitButton.textContent = "Continue With Sponsorship";
+                    } else if (category.group === "ADVERTISING") {
+                        submitButton.textContent = "Continue With Advertisement";
+                    } else if (category.group === "BRANDING") {
+                        submitButton.textContent = "Reserve Branding Opportunity";
+                    } else if (category.group === "EXHIBITION") {
+                        submitButton.textContent = "Continue With Booking";
+                    } else if (category.group === "CORPORATE") {
+                        submitButton.textContent = "Reserve Corporate Package";
+                    } else if (category.isVip) {
+                        submitButton.textContent = "Submit VIP Registration";
+                    } else {
+                        submitButton.textContent = "Continue to Payment";
+                    }
+                }
+            }
+
+
+            function toggleConditionalField(
+                checkbox,
+                wrapper
+            ) {
+                if (!checkbox || !wrapper) {
+                    return;
+                }
+
+                if (checkbox.checked) {
+                    wrapper.classList.remove("hidden");
+                } else {
+                    wrapper.classList.add("hidden");
+                }
+            }
+
+
+            if (categorySelect) {
+                categorySelect.addEventListener(
+                    "change",
+                    updateCategoryDisplay
+                );
+            }
+
+            if (
+                accommodationCheckbox
+                && accommodationDetailsWrapper
+            ) {
+                accommodationCheckbox.addEventListener(
+                    "change",
+                    function () {
+                        toggleConditionalField(
+                            accommodationCheckbox,
+                            accommodationDetailsWrapper
+                        );
+                    }
+                );
+            }
+
+            if (
+                transportCheckbox
+                && transportDetailsWrapper
+            ) {
+                transportCheckbox.addEventListener(
+                    "change",
+                    function () {
+                        toggleConditionalField(
+                            transportCheckbox,
+                            transportDetailsWrapper
+                        );
+                    }
+                );
+            }
+
+            if (
+                speakingCheckbox
+                && speakingDetailsWrapper
+            ) {
+                speakingCheckbox.addEventListener(
+                    "change",
+                    function () {
+                        toggleConditionalField(
+                            speakingCheckbox,
+                            speakingDetailsWrapper
+                        );
+                    }
+                );
+            }
+
+
+            updateCategoryDisplay();
+
+            toggleConditionalField(
+                accommodationCheckbox,
+                accommodationDetailsWrapper
+            );
+
+            toggleConditionalField(
+                transportCheckbox,
+                transportDetailsWrapper
+            );
+
+            toggleConditionalField(
+                speakingCheckbox,
+                speakingDetailsWrapper
+            );
+        });
+    </script>
+
+</body>
+</html>

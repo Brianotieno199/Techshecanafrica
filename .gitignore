@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environment
+venv/
+.venv/
+
+# Environment variables
+.env
+
+# IDE/editor
+.vscode/
+.idea/
+
+# Old corrupted Git data
+.git_corrupt/

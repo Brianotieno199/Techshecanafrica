@@ -1,0 +1,704 @@
+{% load static tailwind_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Complete payment for {{ event.title }}."
+    >
+
+    <title>
+        Payment | TechShe Can Africa
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="{% static 'css/dist/styles.css' %}"
+    >
+
+    <style>
+        select,
+        input[type="text"] {
+            width: 100%;
+            background-color: #ffffff !important;
+            color: #0f172a !important;
+            border-color: #cbd5e1 !important;
+            border-radius: 0.75rem;
+            min-height: 48px;
+        }
+
+        select option {
+            background-color: #ffffff !important;
+            color: #0f172a !important;
+        }
+
+        select:focus,
+        input[type="text"]:focus {
+            border-color: #00A99D !important;
+            box-shadow: 0 0 0 3px rgba(0, 169, 157, 0.18) !important;
+            outline: none !important;
+        }
+    </style>
+</head>
+
+<body class="bg-[#111827] text-white">
+
+    <!-- HEADER -->
+
+    <header
+        class="bg-[#1B1F2A]
+               border-b border-[#2F80ED]/40
+               shadow-lg"
+    >
+        <nav
+            class="max-w-screen-xl mx-auto
+                   px-4 md:px-6 py-4
+                   flex items-center justify-between gap-4"
+        >
+            <a
+                href="{% url 'home' %}"
+                class="flex items-center gap-3"
+            >
+                <img
+                    src="{% static 'website/images/logo.jpeg' %}"
+                    alt="TechShe Can Africa Logo"
+                    class="h-12 w-12 rounded-full
+                           object-cover
+                           border-2 border-[#2F80ED]"
+                >
+
+                <div class="leading-tight">
+                    <p class="text-lg font-extrabold text-white">
+                        TechShe Can
+                    </p>
+
+                    <p class="text-sm font-bold text-[#00A99D]">
+                        Africa
+                    </p>
+                </div>
+            </a>
+
+            <a
+                href="{% url 'event_detail' event.id %}"
+                class="text-sm md:text-base
+                       text-slate-200
+                       hover:text-[#00A99D]
+                       transition"
+            >
+                Back to Event
+            </a>
+        </nav>
+    </header>
+
+
+    <!-- DJANGO MESSAGES -->
+
+    {% if messages %}
+        <section
+            class="max-w-4xl mx-auto
+                   px-4 md:px-6 pt-6"
+        >
+            {% for message in messages %}
+                <div
+                    class="
+                        mb-4 rounded-xl border px-5 py-4
+
+                        {% if message.tags == 'success' %}
+                            border-green-500/40
+                            bg-green-500/10
+                            text-green-200
+
+                        {% elif message.tags == 'error' %}
+                            border-red-500/40
+                            bg-red-500/10
+                            text-red-200
+
+                        {% elif message.tags == 'warning' %}
+                            border-yellow-500/40
+                            bg-yellow-500/10
+                            text-yellow-200
+
+                        {% else %}
+                            border-blue-500/40
+                            bg-blue-500/10
+                            text-blue-200
+                        {% endif %}
+                    "
+                >
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </section>
+    {% endif %}
+
+
+    <main>
+        <section class="py-10 md:py-16 px-4 md:px-6">
+
+            <div class="max-w-5xl mx-auto">
+
+                <!-- PAGE TITLE -->
+
+                <div class="text-center mb-10">
+
+                    <p
+                        class="text-[#F4A024]
+                               font-bold uppercase
+                               tracking-widest mb-3"
+                    >
+                        Payment Instructions
+                    </p>
+
+                    <h1
+                        class="text-3xl md:text-5xl
+                               font-extrabold text-white mb-4"
+                    >
+                        Complete Your Payment
+                    </h1>
+
+                    <p
+                        class="text-slate-300
+                               text-lg max-w-2xl mx-auto"
+                    >
+                        Your registration has been received.
+                        Please complete payment using one of the
+                        payment options below.
+                    </p>
+
+                </div>
+
+
+                <!-- REGISTRATION SUMMARY -->
+
+                <div
+                    class="bg-[#1E293B]
+                           rounded-3xl
+                           border border-[#2F80ED]/30
+                           shadow-2xl
+                           p-6 md:p-8 mb-8"
+                >
+
+                    <h2
+                        class="text-xl md:text-2xl
+                               font-bold text-white
+                               mb-6"
+                    >
+                        Registration Summary
+                    </h2>
+
+                    <div
+                        class="grid md:grid-cols-2 gap-6"
+                    >
+
+                        <div>
+                            <p
+                                class="text-slate-400
+                                       text-sm uppercase
+                                       font-semibold"
+                            >
+                                Registration Reference
+                            </p>
+
+                            <p
+                                class="text-xl font-extrabold
+                                       text-[#F4A024] mt-1"
+                            >
+                                TSCA-{{ registration.id }}
+                            </p>
+                        </div>
+
+
+                        <div>
+                            <p
+                                class="text-slate-400
+                                       text-sm uppercase
+                                       font-semibold"
+                            >
+                                Full Name
+                            </p>
+
+                            <p
+                                class="text-lg
+                                       text-white mt-1"
+                            >
+                                {{ registration.full_name }}
+                            </p>
+                        </div>
+
+
+                        <div>
+                            <p
+                                class="text-slate-400
+                                       text-sm uppercase
+                                       font-semibold"
+                            >
+                                Category
+                            </p>
+
+                            <p
+                                class="text-lg
+                                       text-white mt-1"
+                            >
+                                {{ registration.category_item.name }}
+                            </p>
+                        </div>
+
+
+                        <div>
+                            <p
+                                class="text-slate-400
+                                       text-sm uppercase
+                                       font-semibold"
+                            >
+                                Amount Payable
+                            </p>
+
+                            <p
+                                class="text-2xl font-extrabold
+                                       text-[#00A99D] mt-1"
+                            >
+                                {% if registration.currency == "KES" %}
+                                    KSh
+                                {% else %}
+                                    {{ registration.currency }}
+                                {% endif %}
+
+                                {{ total_amount|floatformat:2 }}
+                            </p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- IMPORTANT NOTICE -->
+
+                <div
+                    class="rounded-2xl
+                           border border-[#F4A024]/40
+                           bg-[#F4A024]/10
+                           p-6 mb-8"
+                >
+
+                    <h2
+                        class="text-lg font-bold
+                               text-[#F4A024] mb-2"
+                    >
+                        Important
+                    </h2>
+
+                    <p
+                        class="text-slate-300
+                               leading-7"
+                    >
+                        Please pay the amount shown above using
+                        one of the payment methods below.
+                        Keep your payment confirmation or transaction
+                        reference because you will enter it after payment.
+                    </p>
+
+                    <p
+                        class="text-slate-300
+                               leading-7 mt-3"
+                    >
+                        Where possible, use
+                        <strong>TSCA-{{ registration.id }}</strong>
+                        as your payment reference.
+                    </p>
+
+                </div>
+
+
+                <!-- PAYMENT METHODS -->
+
+                <div
+                    class="grid md:grid-cols-3
+                           gap-6 mb-10"
+                >
+
+                    <!-- MPESA -->
+
+                    <div
+                        class="bg-[#1E293B]
+                               rounded-3xl
+                               border border-[#00A99D]/40
+                               p-6 shadow-xl"
+                    >
+
+                        <div class="text-3xl mb-4">
+                            📱
+                        </div>
+
+                        <h2
+                            class="text-xl font-bold
+                                   text-white mb-4"
+                        >
+                            M-PESA Till
+                        </h2>
+
+                        <p
+                            class="text-slate-400
+                                   text-sm"
+                        >
+                            Till Number
+                        </p>
+
+                        <p
+                            class="text-3xl
+                                   font-extrabold
+                                   text-[#00A99D]
+                                   mt-1"
+                        >
+                            5627312
+                        </p>
+
+                        <div
+                            class="border-t
+                                   border-slate-700
+                                   my-5"
+                        ></div>
+
+                        <p
+                            class="text-slate-400
+                                   text-sm"
+                        >
+                            Business Name
+                        </p>
+
+                        <p
+                            class="text-lg
+                                   font-semibold
+                                   text-white mt-1"
+                        >
+                            Jelidata Tech Solutions
+                        </p>
+
+                    </div>
+
+
+                    <!-- ABSA -->
+
+                    <div
+                        class="bg-[#1E293B]
+                               rounded-3xl
+                               border border-[#2F80ED]/40
+                               p-6 shadow-xl"
+                    >
+
+                        <div class="text-3xl mb-4">
+                            🏦
+                        </div>
+
+                        <h2
+                            class="text-xl font-bold
+                                   text-white mb-4"
+                        >
+                            ABSA
+                        </h2>
+
+                        <p
+                            class="text-slate-400
+                                   text-sm"
+                        >
+                            Paybill
+                        </p>
+
+                        <p
+                            class="text-2xl
+                                   font-extrabold
+                                   text-[#2F80ED]
+                                   mt-1"
+                        >
+                            303030
+                        </p>
+
+                        <div
+                            class="border-t
+                                   border-slate-700
+                                   my-5"
+                        ></div>
+
+                        <p
+                            class="text-slate-400
+                                   text-sm"
+                        >
+                            Account
+                        </p>
+
+                        <p
+                            class="text-xl
+                                   font-bold
+                                   text-white mt-1"
+                        >
+                            2053012658
+                        </p>
+
+                    </div>
+
+
+                    <!-- I&M -->
+
+                    <div
+                        class="bg-[#1E293B]
+                               rounded-3xl
+                               border border-[#F4A024]/40
+                               p-6 shadow-xl"
+                    >
+
+                        <div class="text-3xl mb-4">
+                            🏦
+                        </div>
+
+                        <h2
+                            class="text-xl font-bold
+                                   text-white mb-4"
+                        >
+                            I&amp;M Bank
+                        </h2>
+
+                        <p
+                            class="text-slate-400
+                                   text-sm"
+                        >
+                            Paybill
+                        </p>
+
+                        <p
+                            class="text-2xl
+                                   font-extrabold
+                                   text-[#F4A024]
+                                   mt-1"
+                        >
+                            524524
+                        </p>
+
+                        <div
+                            class="border-t
+                                   border-slate-700
+                                   my-5"
+                        ></div>
+
+                        <p
+                            class="text-slate-400
+                                   text-sm"
+                        >
+                            Account
+                        </p>
+
+                        <p
+                            class="text-xl
+                                   font-bold
+                                   text-white mt-1"
+                        >
+                            24905
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PAYMENT CONFIRMATION FORM -->
+
+                <div
+                    class="bg-[#1E293B]
+                           rounded-3xl
+                           border border-[#00A99D]/30
+                           shadow-2xl
+                           p-6 md:p-10"
+                >
+
+                    <div class="mb-8">
+
+                        <p
+                            class="text-[#00A99D]
+                                   font-bold uppercase
+                                   tracking-widest mb-2"
+                        >
+                            After You Pay
+                        </p>
+
+                        <h2
+                            class="text-2xl md:text-3xl
+                                   font-extrabold
+                                   text-white mb-3"
+                        >
+                            Submit Your Payment Reference
+                        </h2>
+
+                        <p
+                            class="text-slate-300"
+                        >
+                            Enter the payment method you used and
+                            the transaction or confirmation reference
+                            you received.
+                        </p>
+
+                    </div>
+
+
+                    <form method="POST">
+
+                        {% csrf_token %}
+
+
+                        <div class="mb-6">
+
+                            <label
+                                for="payment_method"
+                                class="block
+                                       text-slate-200
+                                       font-semibold
+                                       mb-2"
+                            >
+                                Payment Method
+                                <span class="text-red-400">*</span>
+                            </label>
+
+                            <select
+                                name="payment_method"
+                                id="payment_method"
+                                required
+                                class="px-4"
+                            >
+
+                                <option value="">
+                                    Select payment method
+                                </option>
+
+                                <option value="MPESA_TILL">
+                                    M-PESA Till - 5627312
+                                </option>
+
+                                <option value="ABSA">
+                                    ABSA - Paybill 303030
+                                </option>
+
+                                <option value="IM_BANK">
+                                    I&amp;M Bank - Paybill 524524
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="mb-6">
+
+                            <label
+                                for="transaction_reference"
+                                class="block
+                                       text-slate-200
+                                       font-semibold
+                                       mb-2"
+                            >
+                                Transaction / Confirmation Reference
+                                <span class="text-red-400">*</span>
+                            </label>
+
+                            <input
+                                type="text"
+                                name="transaction_reference"
+                                id="transaction_reference"
+                                required
+                                maxlength="150"
+                                autocomplete="off"
+                                placeholder="Example: QH45ABC123"
+                                class="px-4"
+                            >
+
+                            <p
+                                class="text-slate-400
+                                       text-sm mt-2"
+                            >
+                                Enter the reference exactly as it
+                                appears on your payment confirmation.
+                            </p>
+
+                        </div>
+
+
+                        <div
+                            class="rounded-2xl
+                                   border border-blue-500/30
+                                   bg-blue-500/10
+                                   p-5 mb-7"
+                        >
+
+                            <p
+                                class="text-blue-200
+                                       text-sm leading-6"
+                            >
+                                Your registration will remain
+                                <strong>Pending Payment</strong>
+                                until your payment is manually verified
+                                by the TechShe Can Africa team.
+                            </p>
+
+                        </div>
+
+
+                        <button
+                            type="submit"
+                            class="w-full
+                                   bg-[#00A99D]
+                                   hover:bg-[#008F85]
+                                   text-white
+                                   py-4
+                                   rounded-full
+                                   font-bold text-lg
+                                   transition
+                                   shadow-lg"
+                        >
+                            Submit Payment Confirmation
+                        </button>
+
+                    </form>
+
+                </div>
+
+
+                <!-- RETURN LINK -->
+
+                <div class="text-center mt-8">
+
+                    <a
+                        href="{% url 'event_detail' event.id %}"
+                        class="text-slate-400
+                               hover:text-[#00A99D]
+                               transition"
+                    >
+                        ← Return to Event Details
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer
+        class="bg-[#0B1120]
+               py-8 text-center
+               text-slate-400 text-sm
+               border-t border-[#2F80ED]/30"
+    >
+        &copy; 2026 TechShe Can Africa.
+        All Rights Reserved.
+    </footer>
+
+</body>
+</html>
